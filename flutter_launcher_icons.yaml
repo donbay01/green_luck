@@ -1,0 +1,7 @@
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/logo.png"
+  adaptive_icon_background: "#DAE8DA"
+  adaptive_icon_foreground: "assets/logo.png"
