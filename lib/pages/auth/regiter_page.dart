@@ -65,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 image: DecorationImage(
                     image: AssetImage('assets/auth.png'), fit: BoxFit.cover)),
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,10 +82,25 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: primaryWhite,
                     ),
                   ),
-                  Text(
-                    "Let's get\nStarted",
-                    style: TextStyle(
-                      fontSize: 40, fontWeight: FontWeight.w500
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                        style: veryBoldText(primaryBlack),
+                        children: [
+                          TextSpan(text: " Let'"),
+                          TextSpan(text: "s get",style: veryBoldText(primaryWhite))
+                        ]
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                        style: veryBoldText(primaryBlack),
+                        children: [
+                          TextSpan(text: " Star"),
+                          TextSpan(text: 'ted',style: veryBoldText(primaryWhite))
+                        ]
                     ),
                   ),
                   const SizedBox(

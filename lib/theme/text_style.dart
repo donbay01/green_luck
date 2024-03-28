@@ -92,7 +92,7 @@ TextStyle boldText(Color colors) => TextStyle(
   color: colors,
   fontSize: Bold,
   fontFamily: font,
-  fontWeight: FontWeight.w700,
+  fontWeight: FontWeight.w600,
 );
 
 TextStyle bold() => TextStyle(

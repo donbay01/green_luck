@@ -43,10 +43,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 const SizedBox(
                   height: 100,
                 ),
+
                 Center(
-                  child: Text(
-                    'Reset Your Password',
-                    style: largeText(primaryBlack),
+                  child: RichText(
+                    text: TextSpan(
+                        style: boldText(primaryBlack),
+                        children: [
+                          TextSpan(text: ' Rese'),
+                          TextSpan(text: 't Your Pass',style: boldText(primaryWhite)),
+                          TextSpan(text: 'word',)
+                        ]
+                    ),
                   ),
                 ),
                 const SizedBox(

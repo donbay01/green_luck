@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:green_luck/pages/auth/regiter_page.dart';
+import 'package:green_luck/pages/homePage/homepage.dart';
 import 'package:green_luck/theme/colors.dart';
 
 
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                 image: DecorationImage(
                     image: AssetImage('assets/auth.png'), fit: BoxFit.cover)),
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisAlignment: MainAxisAlignment.center,
@@ -70,11 +71,26 @@ class _LoginPageState extends State<LoginPage> {
                       color: primaryWhite,
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
 
-                  Text(
-                    'Welcome\nBack',
-                    style: TextStyle(
-                      fontSize: 40,fontWeight: FontWeight.w500
+                  RichText(
+                      text: TextSpan(
+                        style: veryBoldText(primaryBlack),
+                        children: [
+                          TextSpan(text: ' Wel'),
+                          TextSpan(text: 'come',style: veryBoldText(primaryWhite))
+                        ]
+                      ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                        style: veryBoldText(primaryBlack),
+                        children: [
+                          TextSpan(text: ' Bac'),
+                          TextSpan(text: 'k!',style: veryBoldText(primaryWhite))
+                        ]
                     ),
                   ),
                   const SizedBox(
@@ -206,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (_)=> HomePage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=> Homepage()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: darkGreen,
