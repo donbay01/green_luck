@@ -12,7 +12,7 @@ class PremiumTips extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-          color: darkGreen, borderRadius: BorderRadius.circular(20)),
+          color: lightGreen, borderRadius: BorderRadius.circular(0)),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -24,6 +24,7 @@ class PremiumTips extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: primaryWhite,
                   borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: darkGreen,width: 2)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -122,6 +123,7 @@ class PremiumTips extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: primaryWhite,
                   borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: darkGreen,width: 2)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -220,6 +222,7 @@ class PremiumTips extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: primaryWhite,
                   borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: darkGreen,width: 2)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
