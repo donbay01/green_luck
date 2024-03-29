@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:green_luck/pages/drawer/home_drawer.dart';
 import 'package:green_luck/pages/games/free_games.dart';
 import 'package:green_luck/pages/games/premium_tips.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:green_luck/widgets/auth/account_header.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../services/auth/index.dart';
 import '../../theme/text_style.dart';
 
 class Homepage extends StatefulWidget {
@@ -35,18 +38,47 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var weight = MediaQuery.of(context).size.width;
+    var user = AuthService.getCurrentUser()!;
     return Scaffold(
       backgroundColor: lightGreen,
+      appBar: AppBar(
+        backgroundColor: darkGreen,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: primaryWhite,
+              size: 25,
+            ),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              user.displayName ?? 'Guest',
+              style: mediumBold(primaryWhite),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            CircleAvatar(
+              child: Icon(Icons.person),
+              // radius: 25,
+            ),
+          ],
+        ),
+      ),
+      drawer: const HomeDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             SizedBox(
-              height: 50,
-            ),
-            AccountHeader(),
-            SizedBox(
-              height: 20,
+              height: 10,
             ),
             Container(
               height: height * .2,
@@ -99,7 +131,15 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                     height: 5,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      const url = 'https://betcode.page.link/app';
+                      if (await canLaunchUrlString(url)) {
+                        await launchUrlString(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      }
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         color: darkGreen,
@@ -136,7 +176,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
             ),
             Container(
               height: height * 0.07,
-              color: darkGreen,
+              color: primaryWhite,
               child: TabBar(
                 onTap: (i) => setState(() {
                   type = i == 0 ? 'Free' : 'Paid';
@@ -144,12 +184,12 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  color: primaryWhite,
+                  color: darkGreen,
                 ),
                 controller: tabController,
                 isScrollable: false,
-                unselectedLabelColor: searchGrey,
-                labelColor: primaryBlack,
+                unselectedLabelColor: primaryBlack,
+                labelColor: primaryWhite,
                 dividerColor: Colors.transparent,
                 tabs: [
                   Tab(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:green_luck/pages/drawer/home_drawer.dart';
 import 'package:green_luck/services/auth/index.dart';
 import '../../theme/colors.dart';
 import '../../theme/text_style.dart';
@@ -45,7 +46,9 @@ class AccountHeader extends StatelessWidget {
               ],
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                HomeDrawer();
+              },
               icon: Icon(
                 Icons.menu,
                 size: 25,

@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     _timer = Timer(
       const Duration(seconds: 3),
-          () => Navigator.of(context).push(
+      () => Navigator.of(context).push(
         _createRoute(),
       ),
     );
@@ -38,14 +38,14 @@ class _SplashScreenState extends State<SplashScreen> {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
-          end: Alignment.bottomLeft ,
-          colors: [darkGreen,darkGreen],
+          end: Alignment.bottomLeft,
+          colors: [darkGreen, darkGreen],
         ),
       ),
       child: const Center(
           child: Image(
-            image: AssetImage('assets/whiteLogo.png'),
-          )),
+        image: AssetImage('assets/whiteLogo.png'),
+      )),
     );
   }
 
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
         var end = Offset.zero;
         var curve = Curves.ease;
         var tween =
-        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -68,4 +68,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
