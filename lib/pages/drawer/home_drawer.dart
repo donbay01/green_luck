@@ -144,13 +144,13 @@ class HomeDrawer extends StatelessWidget {
                       onPressed: () {
                         // AuthService.logout();
                         // // PurchaseService.logOut();
-                        // Navigator.pushAndRemoveUntil(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const OnboardingScreen(),
-                        //   ),
-                        //       (route) => false,
-                        // );
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OnboardingScreen(),
+                          ),
+                              (route) => false,
+                        );
                       },
                       child: Text(
                         'Yes',
