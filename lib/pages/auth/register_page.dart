@@ -2,39 +2,45 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:green_luck/helper/snackbar.dart';
-import 'package:green_luck/pages/auth/register_page.dart';
-import 'package:green_luck/pages/homePage/homepage.dart';
 import 'package:green_luck/services/auth/index.dart';
-import 'package:green_luck/theme/colors.dart';
 import 'package:green_luck/widgets/button/google.dart';
 import 'package:green_luck/widgets/button/primary.dart';
 import 'package:green_luck/widgets/form/textfield.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:zap_sizer/zap_sizer.dart';
+import '../../theme/colors.dart';
 import '../../theme/text_style.dart';
-import 'forgot_password.dart';
+import '../homePage/homepage.dart';
+import 'login_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  bool termsAndCondition = false;
+
   var key = GlobalKey<FormState>();
+
+  void _changeTerms(bool newValue) =>
+      setState(() => termsAndCondition = newValue);
 
   @override
   void dispose() {
     emailController.dispose();
+    userNameController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
-  login() async {
+  register() async {
     var isValid = key.currentState!.validate();
 
     if (!isValid) {
@@ -44,12 +50,24 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
 
+    if (!termsAndCondition) {
+      return SnackbarHelper.displayToastMessage(
+        context: context,
+        message: 'You need to accept the terms and conditions',
+      );
+    }
+
     context.loaderOverlay.show();
 
     try {
-      await AuthService.login(
+      var credential = await AuthService.signUp(
         email: emailController.text,
         password: passwordController.text,
+      );
+
+      await AuthService.createAccount(
+        credential: credential,
+        displayName: userNameController.text,
       );
 
       context.loaderOverlay.hide();
@@ -82,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Form(
                 key: key,
                 child: Column(
@@ -100,15 +118,15 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     RichText(
                       text: TextSpan(
                         style: veryBoldText(primaryBlack),
                         children: [
-                          TextSpan(text: ' Wel'),
+                          TextSpan(text: " Let'"),
                           TextSpan(
-                            text: 'come',
+                            text: "s get",
                             style: veryBoldText(primaryWhite),
                           ),
                         ],
@@ -118,24 +136,35 @@ class _LoginPageState extends State<LoginPage> {
                       text: TextSpan(
                         style: veryBoldText(primaryBlack),
                         children: [
-                          TextSpan(text: ' Bac'),
+                          TextSpan(text: " Star"),
                           TextSpan(
-                            text: 'k!',
+                            text: 'ted',
                             style: veryBoldText(primaryWhite),
-                          )
+                          ),
                         ],
                       ),
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
+                    ),
+                    CustomTextField(
+                      controller: userNameController,
+                      label: 'Username',
+                      hint: 'Enter your username',
+                      prefixIcon: const Icon(Icons.person),
+                      radius: 25,
+                      keyboardType: TextInputType.name,
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     CustomTextField(
                       controller: emailController,
                       label: 'Email Address',
                       hint: 'Enter your email address',
                       keyboardType: TextInputType.emailAddress,
-                      radius: 25,
                       prefixIcon: const Icon(Icons.email_outlined),
+                      radius: 25,
                       isEmail: true,
                     ),
                     const SizedBox(
@@ -145,40 +174,36 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passwordController,
                       label: 'Password*',
                       hint: 'xxxxxxxxxx',
+                      radius: 25,
                       prefixIcon: const Icon(Icons.lock),
                       isPassword: true,
-                      radius: 25,
                       keyboardType: TextInputType.name,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ForgotPassword(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Forgot Password?',
-                            style: small(),
-                          ),
-                        ),
-                      ],
+                    CheckboxListTile(
+                      activeColor: darkGreen,
+                      checkColor: primaryWhite,
+                      title: Text(
+                        'I accept the Terms and Conditions',
+                        style: smallText(primaryBlack),
+                      ),
+                      value: termsAndCondition,
+                      onChanged: (newValue) {
+                        setState(() {
+                          termsAndCondition = newValue!;
+                        });
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     PrimaryButton(
-                      onPressed: () => login(),
+                      onPressed: () => register(),
                       child: Text(
-                        'Login',
+                        'Register',
                         style: mediumBold(primaryWhite),
                       ),
                     ),
@@ -196,13 +221,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const GoogleButton(),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account ?",
+                          "Already have an account ?",
                           style: smallText(primaryBlack),
                         ),
                         TextButton(
@@ -210,12 +235,12 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const RegisterPage(),
+                                builder: (_) => const LoginPage(),
                               ),
                             );
                           },
                           child: Text(
-                            'Register',
+                            'Login',
                             style: medium(),
                           ),
                         ),

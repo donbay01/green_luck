@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:green_luck/pages/auth/login_page.dart';
-import 'package:green_luck/pages/auth/regiter_page.dart';
+import 'package:green_luck/pages/auth/register_page.dart';
 import 'package:green_luck/theme/colors.dart';
 
 import '../../theme/text_style.dart';
@@ -56,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         MaterialPageRoute(builder: (_) => RegisterPage()));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryWhite,
+                      backgroundColor: primaryWhite,
                       side: BorderSide(color: primaryBlack, width: 2)),
                   child: Text(
                     'Get Started',

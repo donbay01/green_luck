@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:green_luck/helper/snackbar.dart';
+import 'package:green_luck/services/auth/index.dart';
 import 'package:green_luck/theme/text_style.dart';
-
+import 'package:green_luck/widgets/button/primary.dart';
+import 'package:green_luck/widgets/form/textfield.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:zap_sizer/zap_sizer.dart';
 import '../../theme/colors.dart';
-
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -22,19 +27,39 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     super.dispose();
   }
 
+  resetPassword() async {
+    context.loaderOverlay.show();
+
+    try {
+      await AuthService.resetPassword(email: emailController.text);
+      context.loaderOverlay.hide();
+
+      SnackbarHelper.displayToastMessage(
+        context: context,
+        message: 'Email Sent',
+      );
+    } on FirebaseAuthException catch (e) {
+      context.loaderOverlay.hide();
+      SnackbarHelper.displayToastMessage(
+        context: context,
+        message: e.message!,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: ()=> FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Material(
         child: Container(
-          height: height,
-          width: width,
+          height: 100.h,
           decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/auth.png'), fit: BoxFit.cover)),
+            image: DecorationImage(
+              image: AssetImage('assets/auth.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
@@ -43,75 +68,49 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 const SizedBox(
                   height: 100,
                 ),
-
                 Center(
                   child: RichText(
                     text: TextSpan(
-                        style: boldText(primaryBlack),
-                        children: [
-                          TextSpan(text: ' Rese'),
-                          TextSpan(text: 't Your Pass',style: boldText(primaryWhite)),
-                          TextSpan(text: 'word',)
-                        ]
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                TextField(
-                  style: smallText(primaryBlack),
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email Address',
-                    labelStyle: mediumText(primaryBlack),
-                    hintText: 'Enter your email address',
-                    hintStyle: smallText(primaryBlack),
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Colors.black,
-                        width: 0.5,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: darkGreen,
-                        width: 1.0,
-                      ),
-                    ),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: (){},
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                      style: boldText(primaryBlack),
+                      children: [
+                        TextSpan(text: ' Rese'),
+                        TextSpan(
+                          text: 't Your Pass',
+                          style: boldText(primaryWhite),
                         ),
-                        backgroundColor: darkGreen),
-                    child: Text(
-                      'Reset Password',
-                      style: mediumBold(primaryWhite),
+                        TextSpan(
+                          text: 'word',
+                        ),
+                      ],
                     ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                CustomTextField(
+                  controller: emailController,
+                  label: 'Email Address',
+                  hint: 'Enter your email address',
+                  keyboardType: TextInputType.emailAddress,
+                  radius: 25,
+                  isEmail: true,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                PrimaryButton(
+                  onPressed: resetPassword,
+                  child: Text(
+                    'Reset Password',
+                    style: mediumBold(primaryWhite),
                   ),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () => Navigator.pop(context),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -123,7 +122,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Text('Return Home', style: mediumText(primaryBlack)),
+                      Text(
+                        'Return Home',
+                        style: mediumText(primaryBlack),
+                      ),
                     ],
                   ),
                 ),

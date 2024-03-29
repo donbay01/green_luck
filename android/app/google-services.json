@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "580099723061",
+    "project_id": "green-luck-34362",
+    "storage_bucket": "green-luck-34362.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580099723061:android:d5a798305e54063e14467c",
+        "android_client_info": {
+          "package_name": "com.greenluck.greenluck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580099723061-u6ihmicd1jon0u6c1dcsrtiuk6hm9mia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.greenluck.greenluck",
+            "certificate_hash": "4f3ce8baf4de0d37314ff996d027388188fff9d4"
+          }
+        },
+        {
+          "client_id": "580099723061-5uvek60lreeagr1kkqfntls98i2f9j67.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC1-48CR2yoodbv7hv1BzCFFPK4e5bnhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580099723061-5uvek60lreeagr1kkqfntls98i2f9j67.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "580099723061-b3pmonk1k305vra730pons78qpcmis96.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.greenluck.greenluck"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
