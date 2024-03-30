@@ -73,4 +73,9 @@ class AuthService {
   static User? getCurrentUser() => auth.currentUser;
 
   static Future<void> signOut() => auth.signOut();
+
+  static Future<void> deleteAccount() {
+    var user = getCurrentUser()!;
+    return user.delete();
+  }
 }

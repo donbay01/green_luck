@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:green_luck/pages/auth/login_page.dart';
 import 'package:green_luck/pages/drawer/premium_page.dart';
 import 'package:green_luck/pages/onboardingScreen/onboarding_screen.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -141,15 +142,14 @@ class HomeDrawer extends StatelessWidget {
                 content: Row(
                   children: [
                     TextButton(
-                      onPressed: () {
-                        // AuthService.logout();
-                        // // PurchaseService.logOut();
+                      onPressed: () async {
+                        await AuthService.signOut();
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const OnboardingScreen(),
                           ),
-                              (route) => false,
+                          (route) => false,
                         );
                       },
                       child: Text(
@@ -158,9 +158,7 @@ class HomeDrawer extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                      onPressed: () => Navigator.pop(context),
                       child: Text(
                         'No',
                         style: mediumText(Colors.red),
@@ -196,24 +194,24 @@ class HomeDrawer extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () async {
-                        // try {
-                        //   await ProgressService.show(context);
-                        //   await AuthService.deleteAccount();
-                        //   await ProgressService.hide();
-                        //   Navigator.pushAndRemoveUntil(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const OnboardingScreen(),
-                        //     ),
-                        //         (route) => false,
-                        //   );
-                        // } on FirebaseAuthException catch (e) {
-                        //   ProgressService.hide();
-                        //   SnackbarHelper.displayToastMessage(
-                        //     context: context,
-                        //     message: e.message!,
-                        //   );
-                        // }
+                        context.loaderOverlay.show();
+                        try {
+                          await AuthService.deleteAccount();
+                          context.loaderOverlay.hide();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const OnboardingScreen(),
+                            ),
+                            (route) => false,
+                          );
+                        } on FirebaseAuthException catch (e) {
+                          context.loaderOverlay.hide();
+                          SnackbarHelper.displayToastMessage(
+                            context: context,
+                            message: e.message!,
+                          );
+                        }
                       },
                       child: Text(
                         'Yes',
@@ -221,9 +219,7 @@ class HomeDrawer extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                      onPressed: () => Navigator.pop(context),
                       child: Text(
                         'No',
                         style: mediumText(Colors.red),
