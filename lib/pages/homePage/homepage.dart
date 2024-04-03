@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:green_luck/pages/drawer/home_drawer.dart';
 import 'package:green_luck/pages/games/free_games.dart';
 import 'package:green_luck/pages/games/premium_tips.dart';
+import 'package:green_luck/providers/auth.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:green_luck/widgets/auth/account_header.dart';
+import 'package:green_luck/widgets/form/admin_textfield.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../services/auth/index.dart';
 import '../../theme/text_style.dart';
 
-class Homepage extends StatefulWidget {
+class Homepage extends ConsumerStatefulWidget {
   const Homepage({Key? key}) : super(key: key);
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  ConsumerState<Homepage> createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
+class _HomepageState extends ConsumerState<Homepage>
+    with TickerProviderStateMixin {
   late TabController tabController;
   String type = 'Free';
 
@@ -36,6 +40,8 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var usermodel = ref.watch(userProvider);
+
     var height = MediaQuery.of(context).size.height;
     var weight = MediaQuery.of(context).size.width;
     var user = AuthService.getCurrentUser()!;
@@ -216,6 +222,9 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                 ],
               ),
             ),
+            if (usermodel?.role == 'admin') ...[
+              const AdminTextField(),
+            ]
           ],
         ),
       ),

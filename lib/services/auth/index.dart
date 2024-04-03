@@ -78,4 +78,6 @@ class AuthService {
     var user = getCurrentUser()!;
     return user.delete();
   }
+
+  static Stream<User?> listen() => auth.authStateChanges();
 }
