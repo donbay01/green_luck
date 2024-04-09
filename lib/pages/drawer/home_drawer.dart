@@ -19,24 +19,6 @@ import 'help_support.dart';
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
 
-  // route(BuildContext context, UserModel? user) {
-  //   if (user == null) {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (_) => const LoginPage(),
-  //       ),
-  //     );
-  //   } else {
-  //     // Navigator.push(
-  //     //   context,
-  //     //   MaterialPageRoute(
-  //     //     builder: (_) => const PremiumPage(),
-  //     //   ),
-  //     // );
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     // var prov = context.watch<AuthProvider>();
@@ -44,11 +26,11 @@ class HomeDrawer extends StatelessWidget {
     // var user = prov.providerId;
 
     return Drawer(
-      backgroundColor: darkGreen,
+      backgroundColor: Colors.green[900],
       width: MediaQuery.of(context).size.width * 0.75,
       child: ListView(
         children: [
-          const SizedBox(height: 100),
+          const SizedBox(height: 10),
           ListTile(
             onTap: () {
               Navigator.push(
@@ -128,13 +110,13 @@ class HomeDrawer extends StatelessWidget {
               style: mediumText(primaryWhite),
             ),
           ),
-          const SizedBox(height: 150),
+          const SizedBox(height: 100),
           ListTile(
             onTap: () => showDialog(
               barrierDismissible: false,
               context: context,
               builder: (_) => AlertDialog(
-                backgroundColor: darkGreen,
+                backgroundColor: Colors.green[900],
                 title: Text(
                   'Are You sure you want to log out?',
                   style: mediumText(primaryWhite),
@@ -170,7 +152,7 @@ class HomeDrawer extends StatelessWidget {
             ),
             leading: const Icon(
               Icons.logout,
-              color: primaryWhite,
+              color: Colors.red,
             ),
             title: Text(
               'Log out',
@@ -185,7 +167,7 @@ class HomeDrawer extends StatelessWidget {
               barrierDismissible: false,
               context: context,
               builder: (_) => AlertDialog(
-                backgroundColor: darkGreen,
+                backgroundColor: Colors.green[900],
                 title: Text(
                   'Are You sure you want to delete your account?',
                   style: mediumText(primaryWhite),
@@ -231,38 +213,35 @@ class HomeDrawer extends StatelessWidget {
             ),
             leading: const Icon(
               Icons.delete,
-              color: primaryWhite,
+              color: Colors.red,
             ),
             title: Text(
               'Deactivate account',
               style: mediumText(primaryWhite),
             ),
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height:20),
           Center(
             child: TextButton(
-              onPressed: () async {
-                const url = 'https://www.betcode.live/';
-                if (await canLaunchUrlString(url)) {
-                  await launchUrlString(
-                    url,
-                    mode: LaunchMode.externalApplication,
-                  );
-                }
-              },
-              child: RichText(
-                text: TextSpan(
-                  text: 'Powered by ',
-                  style: smallBold(primaryWhite),
+                onPressed: () async {
+                  const url = 'https://betcode.live/';
+                  if (await canLaunchUrlString(url)) {
+                    await launchUrlString(
+                      url,
+                      mode: LaunchMode.externalApplication,
+                    );
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextSpan(
-                      text: ' Bet Code ',
-                      style: mediumBold(Colors.deepOrange),
-                    ),
-                    TextSpan(text: 'Limited', style: mediumBold(primaryWhite))
+                    Text('Powered by',style: smallBold(primaryWhite),),
+                    Container(
+                        height: 120,
+                        width: 120,
+                        child: Image(image: AssetImage('assets/bLogo.png'),fit: BoxFit.cover,))
                   ],
-                ),
-              ),
+                )
             ),
           ),
         ],

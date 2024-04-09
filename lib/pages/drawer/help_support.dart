@@ -43,7 +43,7 @@ class SupportPage extends StatelessWidget {
           ),
           Image(
               height: MediaQuery.of(context).size.height * 0.3,
-              image: const AssetImage('assets/support.png')),
+              image: const AssetImage('assets/customer.png')),
           const SizedBox(
             height: 20,
           ),
@@ -74,7 +74,7 @@ class SupportPage extends StatelessWidget {
               _sendEmail();
             },
             child: Text(
-              'greenluck@gmail.com',
+              'greenlucktips@gmail.com',
               style: mediumText(darkGreen),
             ),
           ),

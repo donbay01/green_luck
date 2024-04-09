@@ -51,6 +51,9 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   url_launcher: ^6.1.10
   share_plus: ^7.0.2
+  flutter_carousel_widget: ^2.2.0
+  cached_network_image: ^3.3.1
+  flutterflow_paginate_firestore: ^1.0.3+1
 
 
 dev_dependencies:

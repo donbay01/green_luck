@@ -36,7 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               height: 10,
             ),
             Text(
-              'Let The Four Leaf Clover\nGuide Your Path',
+              'Your Winning Advantage\nIs Here!',
               style: GoogleFonts.montaguSlab(
                   textStyle: TextStyle(color: primaryWhite, fontSize: 25)),
               textAlign: TextAlign.center,

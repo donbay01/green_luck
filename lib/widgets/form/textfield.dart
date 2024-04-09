@@ -106,13 +106,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
             : widget.controller.text.isEmpty
                 ? const SizedBox.shrink()
                 : IconButton(
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(Icons.close,color: darkGreen,),
                     onPressed: () {
                       widget.controller.clear();
                     },
                   ),
         filled: true,
-        fillColor: Colors.transparent,
+        fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(widget.radius),
           borderSide: const BorderSide(
@@ -121,7 +121,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: darkGreen,
             width: 1.0,
