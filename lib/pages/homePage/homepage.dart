@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:green_luck/pages/drawer/home_drawer.dart';
 import 'package:green_luck/pages/games/free_games.dart';
 import 'package:green_luck/pages/games/premium_tips.dart';
 import 'package:green_luck/providers/auth.dart';
 import 'package:green_luck/theme/colors.dart';
-import 'package:green_luck/widgets/auth/account_header.dart';
-import 'package:green_luck/widgets/banner/index.dart';
 import 'package:green_luck/widgets/form/admin_textfield.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:zap_sizer/zap_sizer.dart';
 
 import '../../services/auth/index.dart';
 import '../../theme/text_style.dart';
+import '../../widgets/banner/index.dart';
 
 class Homepage extends ConsumerStatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -43,9 +42,8 @@ class _HomepageState extends ConsumerState<Homepage>
   Widget build(BuildContext context) {
     var usermodel = ref.watch(userProvider);
 
-    var height = MediaQuery.of(context).size.height;
-    var weight = MediaQuery.of(context).size.width;
     var user = AuthService.getCurrentUser()!;
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -54,7 +52,7 @@ class _HomepageState extends ConsumerState<Homepage>
           backgroundColor: darkGreen,
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu,
                 color: primaryWhite,
                 size: 25,
@@ -68,17 +66,16 @@ class _HomepageState extends ConsumerState<Homepage>
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                user.displayName ?? 'Guest',
+                usermodel?.displayName ?? 'Guest',
                 style: mediumBold(primaryWhite),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
-              CircleAvatar(
-                backgroundImage: AssetImage('assets/logo.png')
+              const CircleAvatar(backgroundImage: AssetImage('assets/logo.png')
 
-                // radius: 25,
-              ),
+                  // radius: 25,
+                  ),
             ],
           ),
         ),
@@ -87,106 +84,22 @@ class _HomepageState extends ConsumerState<Homepage>
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              // AppBanner(),
-              Container(
-                height: height * .2,
-                width: weight,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: darkGreen,
-                    width: 2,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Convert Your Booking Code!',
-                      style: GoogleFonts.montaguSlab(
-                        textStyle: TextStyle(
-                          color: primaryBlack,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Powered by',
-                          style: smallBold(primaryBlack),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          height: 50,
-                          width: 150,
-                          child: Image(
-                            image: AssetImage('assets/bLogo.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        const url = 'https://betcode.page.link/app';
-                        if (await canLaunchUrlString(url)) {
-                          await launchUrlString(
-                            url,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: darkGreen,
-                          border: Border.all(color: primaryWhite, width: 2),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 45.0,
-                            vertical: 10,
-                          ),
-                          child: Text(
-                            'Convert Now',
-                            style: smallBold(primaryWhite),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
+              const AppBanner(),
+              const SizedBox(
                 height: 20,
               ),
               Text(
                 'Bet Of The Day',
                 style: largeText(darkGreen),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                height: height * 0.07,
+                height: 7.h,
                 color: primaryWhite,
                 child: TabBar(
                   onTap: (i) => setState(() {
@@ -228,7 +141,9 @@ class _HomepageState extends ConsumerState<Homepage>
                 ),
               ),
               if (usermodel?.role == 'admin') ...[
-                const AdminTextField(),
+                AdminTextField(
+                  index: tabController.index,
+                ),
               ]
             ],
           ),

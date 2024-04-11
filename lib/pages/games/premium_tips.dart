@@ -1,271 +1,112 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
+import 'package:green_luck/providers/auth.dart';
 import 'package:green_luck/theme/text_style.dart';
+import 'package:green_luck/widgets/card/game.dart';
+import 'package:zap_sizer/zap_sizer.dart';
 
 import '../../helper/snackbar.dart';
+import '../../models/code.dart';
+import '../../services/code/index.dart';
 import '../../theme/colors.dart';
+import '../drawer/help_support.dart';
+import '../drawer/premium_page.dart';
 
-class PremiumTips extends StatelessWidget {
+class PremiumTips extends ConsumerWidget {
   const PremiumTips({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    return Container(
-      decoration: BoxDecoration(
-          color: lightGreen, borderRadius: BorderRadius.circular(0)),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                height: height * 0.17,
-                width: width,
-                decoration: BoxDecoration(
-                    color: primaryWhite,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: darkGreen,width: 2)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              // const CircleAvatar(),
-                              const SizedBox(width: 5),
-                              Text(
-                                'Barcelona',
-                                style: smallBold(primaryBlack),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "VS",
-                            style: smallBold(darkGreen),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'PSG',
-                                style: smallBold(primaryBlack),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              // const CircleAvatar(),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              Text('Date:',style: smallText(primaryBlack),),
-                              const SizedBox(width: 5,),
-                              Text('31/03/2024',style: smallBold(darkGreen),)
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Time:',
-                                style: smallText(primaryBlack),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                '1:30pm',
-                                style: smallBold(darkGreen),
-                              )
-                            ],
-                          ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    var user = ref.watch(userProvider);
 
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Booking code: ',
-                            style: smallText(primaryBlack),
-                          ),
-                          SizedBox(width: 10,),
-                          ElevatedButton(
-                            onPressed: () {
-                              final data = ClipboardData(
-                                text: 'BSDGTD',
-                              );
-                              Clipboard.setData(data);
-                              SnackbarHelper.displayToastMessage(
-                                context: context,
-                                message: "BetCode Copied",
-                                color: darkGreen,
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: lightGreen,
-                                foregroundColor: darkGreen),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'BSDGTD',
-                                  style: smallBold(darkGreen),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Icon(
-                                  Icons.copy,
-                                  color: darkGreen,
-                                  size: 16,
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                height: height * 0.17,
-                width: width,
-                decoration: BoxDecoration(
-                    color: primaryWhite,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: darkGreen,width: 2)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              // const CircleAvatar(),
-                              const SizedBox(width: 5),
-                              Text(
-                                'Liverpool',
-                                style: smallBold(primaryBlack),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "VS",
-                            style: smallBold(darkGreen),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Atlanta',
-                                style: smallBold(primaryBlack),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              // const CircleAvatar(),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              Text('Date:',style: smallText(primaryBlack),),
-                              const SizedBox(width: 5,),
-                              Text('31/03/2024',style: smallBold(darkGreen),)
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Time:',
-                                style: smallText(primaryBlack),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                '1:30pm',
-                                style: smallBold(darkGreen),
-                              )
-                            ],
-                          ),
+    var height = 100.h;
+    var width = 100.w;
 
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Booking code: ',
-                            style: smallText(primaryBlack),
-                          ),
-                          SizedBox(width: 10,),
-                          ElevatedButton(
-                            onPressed: () {
-                              final data = ClipboardData(
-                                text: 'BSDGTD',
-                              );
-                              Clipboard.setData(data);
-                              SnackbarHelper.displayToastMessage(
-                                context: context,
-                                message: "BetCode Copied",
-                                color: darkGreen,
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: lightGreen,
-                                foregroundColor: darkGreen),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'BSDGTD',
-                                  style: smallBold(darkGreen),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Icon(
-                                  Icons.copy,
-                                  color: darkGreen,
-                                  size: 16,
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+    if (user == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (user.role != 'Paid' && user.role != 'admin') {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Are your ready to level up?',
+            style: mediumSemiBold(primaryWhite),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (Platform.isIOS) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const SupportPage(),
                   ),
-                ),
-              ),
-            ),
-          ],
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const PremiumPage(),
+                  ),
+                );
+              }
+            },
+            child: Text('WE MOVE'),
+          ),
+        ],
+      );
+    }
+
+    return PaginateFirestore(
+      shrinkWrap: true,
+      isLive: true,
+      onEmpty: const Center(
+        child: Text(
+          'No codes here....',
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
+      itemBuilder: (context, snapshots, index) {
+        var snap = snapshots[index];
+        var code = Code.fromSnapshot(
+          snap.id,
+          snap.data() as dynamic,
+        );
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                GameCard(
+                  code: code,
+                  user: user!,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      query: CodeService.getCodes('premium'),
+      itemBuilderType: PaginateBuilderType.listView,
     );
   }
 }
-

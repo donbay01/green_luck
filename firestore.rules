@@ -10,9 +10,37 @@ service cloud.firestore {
       return request.auth.uid == uid;
     }
 
+    function getUserProp(uid, field, value) {
+      return get(/databases/$(database)/documents/users/$(uid)).data[field] == value; 
+    }
+
+    function isAdmin(uid) {
+      return isSignedIn() && getUserProp(uid, 'role', "admin");
+    }
+
     match /users/{userId} {
       allow create: if isSignedIn();
       allow read: if isAssigned(userId);
+      allow update: if isAssigned(userId) && (!request.resource.data.diff(resource.data).affectedKeys()
+        .hasAny(['role']));
+    }
+
+    match /banners/{bannerId} {
+      allow read: if isSignedIn();
+    }
+
+    match /plans/{planId} {
+      allow read: if isSignedIn();
+    }
+
+    match /free/{gameId} {
+      allow create, delete: if isAdmin(request.auth.uid);
+      allow read: if isSignedIn();
+    }
+
+    match /premium/{gameId} {
+      allow create, delete: if isAdmin(request.auth.uid);
+      allow read: if isSignedIn();
     }
   }
 }
