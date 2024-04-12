@@ -20,6 +20,9 @@ class GoogleButton extends StatelessWidget {
         onPressed: () async {
           try {
             var cred = await AuthService.signInWithGoogle();
+            if (cred == null) {
+              return;
+            }
             if (cred.additionalUserInfo!.isNewUser) {
               await AuthService.createAccount(
                 credential: cred,

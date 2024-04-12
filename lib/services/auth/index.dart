@@ -33,17 +33,21 @@ class AuthService {
     return auth.sendPasswordResetEmail(email: email);
   }
 
-  static Future<UserCredential> signInWithGoogle() async {
+  static Future<UserCredential?> signInWithGoogle() async {
     final googleUser = await GoogleSignIn().signIn();
 
     final googleAuth = await googleUser?.authentication;
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    if (googleAuth != null) {
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    return await auth.signInWithCredential(credential);
+      return await auth.signInWithCredential(credential);
+    }
+
+    return null;
   }
 
   static Future<void> createAccount({
