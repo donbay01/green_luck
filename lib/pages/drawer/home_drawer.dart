@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,12 +35,21 @@ class HomeDrawer extends StatelessWidget {
           const SizedBox(height: 10),
           ListTile(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const PremiumPage(),
-                ),
-              );
+              if (Platform.isIOS) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const SupportPage(),
+                  ),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const PremiumPage(),
+                  ),
+                );
+              }
             },
             leading: Icon(
               FontAwesomeIcons.unlock,
