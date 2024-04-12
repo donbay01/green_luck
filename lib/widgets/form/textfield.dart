@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:green_luck/theme/colors.dart';
 import 'package:string_validator/string_validator.dart';
-import '../../theme/colors.dart';
 import '../../theme/text_style.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -13,8 +13,8 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextStyle? labelStyle;
-  final bool isEmail;
   final bool isPassword;
+  final bool isEmail;
 
   const CustomTextField({
     super.key,
@@ -40,14 +40,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     _obscureText = widget.isPassword;
-    widget.controller.addListener(() => setState(() {}));
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(() => setState(() {}));
-    super.dispose();
   }
 
   void _toggle() {
@@ -59,34 +52,30 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: _obscureText,
+      autofillHints: const [AutofillHints.email],
+      onEditingComplete: () => [
+        FocusScope.of(context).unfocus(),
+      ],
+      style: smallText(primaryBlack),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'This field must not be empty';
+          return 'This field is required';
         }
 
         if (widget.isEmail && !isEmail(value)) {
-          return 'Not a valid email';
+          return 'This is not a valid email';
         }
       },
-      keyboardType: widget.keyboardType,
-      style: smallText(primaryBlack),
+      obscureText: _obscureText,
       controller: widget.controller,
-      autofillHints: const [
-        AutofillHints.email,
-        AutofillHints.name,
-      ],
-      onEditingComplete: () => [
-        // TextInput.finishAutofillContext(),
-        FocusScope.of(context).unfocus(),
-      ],
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: const TextStyle(color: primaryBlack),
+        labelStyle: widget.labelStyle ?? mediumText(primaryBlack),
         hintText: widget.hint,
         hintStyle: smallText(primaryBlack),
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.isPassword
+        filled: true,
+        fillColor: primaryWhite,
+        suffixIcon: _obscureText
             ? IconButton(
                 onPressed: () {
                   _toggle();
@@ -94,25 +83,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 icon: _obscureText
                     ? const Icon(
                         FontAwesomeIcons.eyeSlash,
-                        color: Colors.black,
+                        color: Colors.grey,
                         size: 15,
                       )
                     : const Icon(
                         Icons.remove_red_eye,
-                        color: Colors.black,
+                        color: darkGreen,
                         size: 20,
                       ),
               )
-            : widget.controller.text.isEmpty
-                ? const SizedBox.shrink()
-                : IconButton(
-                    icon: const Icon(Icons.close,color: darkGreen,),
-                    onPressed: () {
-                      widget.controller.clear();
-                    },
-                  ),
-        filled: true,
-        fillColor: Colors.white,
+            : widget.suffixIcon,
+        prefixIcon: widget.prefixIcon,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(widget.radius),
           borderSide: const BorderSide(
@@ -121,13 +102,28 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(widget.radius),
           borderSide: const BorderSide(
             color: darkGreen,
             width: 1.0,
           ),
         ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(widget.radius),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 0.5,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(widget.radius),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1,
+          ),
+        ),
       ),
+      keyboardType: widget.keyboardType,
     );
   }
 }

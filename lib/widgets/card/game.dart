@@ -5,6 +5,7 @@ import '../../helper/date.dart';
 import '../../helper/snackbar.dart';
 import '../../models/code.dart';
 import '../../models/user.dart';
+import '../../services/code/index.dart';
 import '../../theme/colors.dart';
 import '../../theme/text_style.dart';
 
@@ -37,7 +38,7 @@ class GameCard extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Container(
                   height: height * 0.17,
                   width: width,
@@ -167,6 +168,23 @@ class GameCard extends StatelessWidget {
                   ),
                 ),
               ),
+              if (user.role == 'admin') ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () => CodeService.deleteCode(
+                        code.collection,
+                        code.id,
+                      ),
+                      icon: const Icon(
+                        Icons.delete,
+                        color: primaryBlack,
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ],
           ),
         );

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:green_luck/providers/auth.dart';
 import 'package:green_luck/theme/text_style.dart';
 import 'package:green_luck/widgets/card/game.dart';
@@ -34,11 +35,14 @@ class PremiumTips extends ConsumerWidget {
 
     if (user.role != 'Paid' && user.role != 'admin') {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(height: 100,),
+          Icon(FontAwesomeIcons.rocket,size: 50,color: darkGreen,),
+          SizedBox(height: 20,),
           Text(
-            'Are your ready to level up?',
-            style: mediumSemiBold(primaryWhite),
+            'Go Premium or Go Home!',
+            style: mediumSemiBold(primaryBlack),
           ),
           SizedBox(
             height: 20,
@@ -61,7 +65,10 @@ class PremiumTips extends ConsumerWidget {
                 );
               }
             },
-            child: Text('WE MOVE'),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("LET'S GO",style: mediumBold(darkGreen),),
+            ),
           ),
         ],
       );
@@ -70,13 +77,15 @@ class PremiumTips extends ConsumerWidget {
     return PaginateFirestore(
       shrinkWrap: true,
       isLive: true,
-      onEmpty: const Center(
-        child: Text(
-          'No codes here....',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
+      onEmpty:  Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 100,),
+          Icon(FontAwesomeIcons.boxOpen,size: 50,color: primaryWhite,),
+          SizedBox(height: 20,),
+          Text('No Code Posted Yet!',style: mediumBold(primaryWhite),),
+        ],
       ),
       itemBuilder: (context, snapshots, index) {
         var snap = snapshots[index];
@@ -86,16 +95,14 @@ class PremiumTips extends ConsumerWidget {
         );
 
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 0.0),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               children: [
-                SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 20,),
                 GameCard(
                   code: code,
                   user: user!,

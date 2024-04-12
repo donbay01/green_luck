@@ -61,7 +61,7 @@ class PremiumPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: HexColor(plan.color),
                   borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: primaryWhite, width: 2),
+                  border: Border.all(color: primaryBlack, width: 2),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -71,26 +71,26 @@ class PremiumPage extends StatelessWidget {
                     children: [
                       Text(
                         '${plan.name}',
-                        style: mediumSemiBold(primaryWhite),
+                        style: mediumSemiBold(primaryBlack),
                       ),
                       Text(
                         'Price: N${plan.amount ~/ 100}',
-                        style: mediumSemiBold(primaryWhite),
+                        style: mediumSemiBold(primaryBlack),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Text(
                         ' - Access to Premium Tips',
-                        style: mediumText(primaryWhite),
+                        style: mediumText(primaryBlack),
                       ),
                       Text(
                         ' - Access to the Worksheet',
-                        style: mediumText(primaryWhite),
+                        style: mediumText(primaryBlack),
                       ),
                       Text(
                         ' - Access to Free Rollover challenges',
-                        style: mediumText(primaryWhite),
+                        style: mediumText(primaryBlack),
                       ),
                       SizedBox(
                         height: 20,
@@ -116,7 +116,8 @@ class PremiumPage extends StatelessWidget {
                           style: mediumText(primaryWhite),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryBlack,
+
+                          backgroundColor: darkGreen,
                           foregroundColor: primaryWhite,
                         ),
                       ),
