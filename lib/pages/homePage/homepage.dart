@@ -72,10 +72,7 @@ class _HomepageState extends ConsumerState<Homepage>
               const SizedBox(
                 width: 10,
               ),
-              const CircleAvatar(backgroundImage: AssetImage('assets/logo.png')
-
-                  // radius: 25,
-                  ),
+              const CircleAvatar(backgroundImage: AssetImage('assets/logo.png')),
             ],
           ),
         ),

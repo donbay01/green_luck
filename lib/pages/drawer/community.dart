@@ -9,6 +9,7 @@ class CommunityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: lightGreen,
       appBar: AppBar(
@@ -34,7 +35,7 @@ class CommunityPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 100,
+            height: 70,
           ),
           Center(
             child: Image(
@@ -42,81 +43,120 @@ class CommunityPage extends StatelessWidget {
                 image: const AssetImage('assets/community.png')),
           ),
           const SizedBox(
-            height: 60,
+            height: 70,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Visit Our Website:'),
+              TextButton(
+                onPressed: () async {
+                  final url = 'https://twitter.com/Wappyking_';
+                  if (await canLaunch(url)) {
+                    await launch(
+                      url,
+                      forceSafariVC: false,
+                      enableJavaScript: true,
+                    );
+                  }
+                },
+                child: Text(
+                  'www.greenlucktips.com',
+                  style: mediumText(darkGreen),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: IconButton(
-                      icon: const Icon(
-                        FontAwesomeIcons.twitter,
-                        color: primaryWhite,
-                        size: 60,
-                      ),
-                      onPressed: () async {
-                        final url = 'https://twitter.com/Wappyking_';
-                        if (await canLaunch(url)) {
-                          await launch(
-                            url,
-                            forceSafariVC: false,
-                            enableJavaScript: true,
-                          );
-                        }
-                      },
+                  IconButton(
+                    icon: const Icon(
+                      FontAwesomeIcons.twitter,
+                      color: Colors.blue,
+                      size: 60,
                     ),
+                    onPressed: () async {
+                      final url = 'https://twitter.com/Wappyking_';
+                      if (await canLaunch(url)) {
+                        await launch(
+                          url,
+                          forceSafariVC: false,
+                          enableJavaScript: true,
+                        );
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'Follow on Twitter',
+                    'Twitter',
                     style: mediumBold(primaryBlack),
                   )
                 ],
               ),
               Column(
                 children: [
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        color: darkGreen,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: IconButton(
-                      icon: const Icon(
-                        FontAwesomeIcons.telegram,
-                        color: primaryWhite,
-                        size: 60,
-                      ),
-                      onPressed: () async {
-                        final url = 'https://t.me/Greenluck7';
-                        if (await canLaunch(url)) {
-                          await launch(
-                            url,
-                            forceSafariVC: false,
-                            enableJavaScript: true,
-                          );
-                        }
-                      },
+                  IconButton(
+                    icon: const Icon(
+                      FontAwesomeIcons.telegram,
+                      color: Colors.blueGrey,
+                      size: 60,
                     ),
+                    onPressed: () async {
+                      final url = 'https://t.me/Greenluck7';
+                      if (await canLaunch(url)) {
+                        await launch(
+                          url,
+                          forceSafariVC: false,
+                          enableJavaScript: true,
+                        );
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'Join our Telegram',
+                    'Telegram',
                     style: mediumBold(primaryBlack),
                   )
                 ],
-              )
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      FontAwesomeIcons.instagram,
+                      color: Colors.red,
+                      size: 60,
+                    ),
+                    onPressed: () async {
+                      final url = 'https://www.instagram.com/greenlucktips_';
+                      if (await canLaunch(url)) {
+                        await launch(
+                          url,
+                          forceSafariVC: false,
+                          enableJavaScript: true,
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Instagram',
+                    style: mediumBold(primaryBlack),
+                  )
+                ],
+              ),
             ],
           )
         ],

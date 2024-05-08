@@ -33,9 +33,9 @@ class FreeTips extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 100,),
-          Icon(FontAwesomeIcons.boxOpen,size: 50,color: primaryWhite,),
+          Icon(FontAwesomeIcons.boxOpen,size: 50,color: primaryBlack,),
           SizedBox(height: 20,),
-          Text('No Free Code Posted Yet!',style: mediumBold(primaryWhite),),
+          Text('No Free Code Posted Yet!',style: mediumBold(primaryBlack),),
         ],
       ),
       itemBuilder: (context, snapshots, index) {
