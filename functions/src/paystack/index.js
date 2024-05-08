@@ -21,12 +21,13 @@ exports.genLink = onCall(async (req) => {
     const payload = JSON.stringify({
         amount: amount,
         email: req.auth.token.email,
+        plan: planId,
         metadata: {
             uid: req.auth.uid,
             planId,
             amount,
         },
-        callback_url: 'www.pickyourmoment.com',
+        callback_url: 'www.greenluck.com',
         channels: ['card', 'bank', 'ussd', 'qr', 'bank_transfer']
     })
 

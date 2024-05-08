@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:green_luck/pages/auth/login_page.dart';
 import 'package:green_luck/pages/drawer/premium_page.dart';
 import 'package:green_luck/pages/onboardingScreen/onboarding_screen.dart';
+import 'package:green_luck/services/dynamic.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -86,7 +87,7 @@ class HomeDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () async {
-              final urlLink = "www.greenluck.com";
+              final urlLink = await DynamicLink.getLink();
               await Share.share(
                 'Download Green Luck Sports prediction app.\n$urlLink',
               );
@@ -231,7 +232,7 @@ class HomeDrawer extends StatelessWidget {
               style: mediumText(primaryWhite),
             ),
           ),
-          const SizedBox(height:20),
+          const SizedBox(height: 20),
           Center(
             child: TextButton(
                 onPressed: () async {
@@ -246,14 +247,19 @@ class HomeDrawer extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Powered by',style: smallBold(primaryWhite),),
+                    Text(
+                      'Powered by',
+                      style: smallBold(primaryWhite),
+                    ),
                     Container(
                         height: 120,
                         width: 120,
-                        child: Image(image: AssetImage('assets/bLogo.png'),fit: BoxFit.cover,))
+                        child: Image(
+                          image: AssetImage('assets/bLogo.png'),
+                          fit: BoxFit.cover,
+                        ))
                   ],
-                )
-            ),
+                )),
           ),
         ],
       ),

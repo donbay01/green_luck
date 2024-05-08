@@ -56,6 +56,7 @@ dependencies:
   flutter_carousel_widget: ^2.2.0
   cached_network_image: ^3.3.1
   flutterflow_paginate_firestore: ^1.0.3+1
+  firebase_dynamic_links: ^5.5.5
 
 
 dev_dependencies:
