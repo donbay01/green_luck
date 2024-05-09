@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:zap_sizer/zap_sizer.dart';
 import '../../theme/colors.dart';
 import '../../theme/text_style.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -93,7 +95,45 @@ class SupportPage extends StatelessWidget {
                 style: mediumBold(primaryWhite),
               ),
             ),
-          )
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          Text(
+            'Or',
+            style: mediumText(Colors.white),
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => launchUrlString('https://t.me/Greenluck7'),
+                  child: Icon(
+                    FontAwesomeIcons.telegram,
+                    color: Colors.blueGrey,
+                    size: 24.sp,
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () =>
+                      launchUrlString('https://twitter.com/Wappyking_'),
+                  child: Icon(
+                    FontAwesomeIcons.twitter,
+                    color: Colors.blue,
+                    size: 24.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
