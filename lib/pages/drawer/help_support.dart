@@ -101,7 +101,7 @@ class SupportPage extends StatelessWidget {
           ),
           Text(
             'Or',
-            style: mediumText(Colors.white),
+            style: mediumText(Colors.black),
           ),
           SizedBox(
             height: 2.h,

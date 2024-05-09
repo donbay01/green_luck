@@ -36,7 +36,7 @@ class HomeDrawer extends StatelessWidget {
           const SizedBox(height: 10),
           ListTile(
             onTap: () {
-              if (Platform.isIOS) {
+              if (Platform.isAndroid) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
