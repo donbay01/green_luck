@@ -10,6 +10,7 @@ import 'package:green_luck/pages/splashScreen/splash_screen.dart';
 import 'package:green_luck/services/auth/index.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:zap_sizer/zap_sizer.dart';
 
 import 'providers/auth.dart';
@@ -54,16 +55,18 @@ class _GreenLuckState extends ConsumerState<GreenLuck> {
             radius: 16,
           ),
         ),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: appName,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-            useMaterial3: true,
+        child: OKToast(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: appName,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+              useMaterial3: true,
+            ),
+            home: AuthService.getCurrentUser() == null
+                ? const SplashScreen()
+                : const Homepage(),
           ),
-          home: AuthService.getCurrentUser() == null
-              ? const SplashScreen()
-              : const Homepage(),
         ),
       ),
     );

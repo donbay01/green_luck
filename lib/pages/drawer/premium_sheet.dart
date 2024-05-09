@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:zap_sizer/zap_sizer.dart';
 import '../../helper/snackbar.dart';
@@ -29,7 +30,6 @@ class PremiumSheet extends StatefulWidget {
 class _PremiumSheetState extends State<PremiumSheet> {
   @override
   Widget build(BuildContext context) {
-    var address = 'TShyaFmCKb19HTnAP2zXJdZZzifTZjfwqq';
     return SizedBox(
       height: 30.h,
       child: Column(
@@ -60,7 +60,6 @@ class _PremiumSheetState extends State<PremiumSheet> {
           ),
           ListTile(
             onTap: () async {
-
               context.loaderOverlay.show();
               try {
                 var info = await PlanService.getBankInfo();
@@ -127,69 +126,85 @@ class _PremiumSheetState extends State<PremiumSheet> {
             height: 10,
           ),
           ListTile(
-            onTap: ()  {
-              showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title:  Center(child: Text('USDT Payment',style: mediumBold(primaryBlack),)),
-                    content: SizedBox(
-                      height: 30.h,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Address - $address',style: mediumBold(primaryBlack),),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Text('Network - Tron (TRC 20)',style: mediumBold(primaryBlack),),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Text('Kindly share your proof of payment for confirmation',style: medium(),),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
+            onTap: () async {
+              var crypto = await PlanService.getCryptoInfo();
 
-                              final data = ClipboardData(
-                                text: address,
-                              );
-                              Clipboard.setData(data);
-                              print(data);
-                              SnackbarHelper.displayToastMessage(
-                                context: context,
-                                message: "Address Copied",
-                                color: darkGreen,
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: darkGreen,
-                                foregroundColor: darkGreen),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Copy Address',
-                                  style: smallBold(primaryWhite),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Icon(
-                                  Icons.copy,
-                                  color: primaryWhite,
-                                  size: 16,
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+              await showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Center(
+                    child: Text(
+                      'USDT Payment',
+                      style: mediumBold(primaryBlack),
                     ),
                   ),
-                );
+                  content: SizedBox(
+                    height: 30.h,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Address - ${crypto.address}',
+                          style: mediumBold(primaryBlack),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Text(
+                          'Network - ${crypto.network}',
+                          style: mediumBold(primaryBlack),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Text(
+                          'Kindly share your proof of payment for confirmation',
+                          style: medium(),
+                        ),
+                        SizedBox(
+                          height: 4.h,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final data = ClipboardData(
+                              text: crypto.address,
+                            );
+                            Clipboard.setData(data);
+                            print(data);
+                            // SnackbarHelper.displayToastMessage(
+                            //   context: context,
+                            //   message: "Address Copied",
+                            //   color: darkGreen,
+                            // );
+                            showToast("Address Copied");
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: darkGreen,
+                              foregroundColor: darkGreen),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Copy Address',
+                                style: smallBold(primaryWhite),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Icon(
+                                Icons.copy,
+                                color: primaryWhite,
+                                size: 16,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
             },
             leading: const Icon(FontAwesomeIcons.coins),
             title: const Text('Pay with USDT (TRC 20)'),

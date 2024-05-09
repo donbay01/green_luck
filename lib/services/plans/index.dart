@@ -17,10 +17,16 @@ class PlanService {
 
     return resp.data['data']['authorization_url'];
   }
+
   static Future<BankInformation> getBankInfo() async {
     var res = await db.collection('bank').doc('account').get();
     var bank = BankInformation.fromJSON(res.data() as dynamic);
     return bank;
   }
 
+  static Future<CryptoInformation> getCryptoInfo() async {
+    var res = await db.collection('bank').doc('crypto').get();
+    var bank = CryptoInformation.fromJSON(res.data() as dynamic);
+    return bank;
+  }
 }

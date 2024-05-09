@@ -33,6 +33,10 @@ service cloud.firestore {
       allow read: if isSignedIn();
     }
 
+    match /bank/{account} {
+      allow read;
+    }
+
     match /free/{gameId} {
       allow create, delete: if isAdmin(request.auth.uid);
       allow read: if isSignedIn();
