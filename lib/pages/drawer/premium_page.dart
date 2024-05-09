@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
+import 'package:green_luck/pages/drawer/premium_sheet.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -97,19 +98,12 @@ class PremiumPage extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          context.loaderOverlay.show();
-                          try {
-                            var link = await PlanService.getLink(plan.planId!);
-                            print(link);
-                            context.loaderOverlay.hide();
-                            launchUrlString(link);
-                          } on FirebaseFunctionsException catch (e) {
-                            context.loaderOverlay.hide();
-                            SnackbarHelper.displayToastMessage(
-                              context: context,
-                              message: e.message!,
-                            );
-                          }
+                          await showModalBottomSheet(
+                            context: context,
+                            builder: (_) => PremiumSheet(
+                              plan: plan,
+                            ),
+                          );
                         },
                         child: Text(
                           ' Get Plan',

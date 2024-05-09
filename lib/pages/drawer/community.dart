@@ -51,7 +51,7 @@ class CommunityPage extends StatelessWidget {
               Text('Visit Our Website:'),
               TextButton(
                 onPressed: () async {
-                  final url = 'https://twitter.com/Wappyking_';
+                  final url = 'https://www.greenlucktips.com';
                   if (await canLaunch(url)) {
                     await launch(
                       url,
