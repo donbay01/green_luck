@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
@@ -212,21 +214,24 @@ class _PremiumSheetState extends State<PremiumSheet> {
             leading: const Icon(FontAwesomeIcons.coins),
             title: const Text('Pay with USDT (TRC 20)'),
           ),
-          ListTile(
-            leading: const Icon(FontAwesomeIcons.applePay),
-            onTap: () async {
-              context.loaderOverlay.show();
-              try {
-                var product = await PlanService.getInApp(widget.plan.appleId!);
-                context.loaderOverlay.hide();
-                await PlanService.buy(product.first);
-              } on PlatformException catch (e) {
-                context.loaderOverlay.hide();
-                showToast(e.message ?? e.details);
-              }
-            },
-            title: Text('Pay with Apple'),
-          ),
+          if (Platform.isIOS) ...[
+            ListTile(
+              leading: const Icon(FontAwesomeIcons.applePay),
+              onTap: () async {
+                context.loaderOverlay.show();
+                try {
+                  var product =
+                      await PlanService.getInApp(widget.plan.appleId!);
+                  context.loaderOverlay.hide();
+                  await PlanService.buy(product.first);
+                } on PlatformException catch (e) {
+                  context.loaderOverlay.hide();
+                  showToast(e.message ?? e.details);
+                }
+              },
+              title: Text('Pay with Apple'),
+            ),
+          ]
         ],
       ),
     );
