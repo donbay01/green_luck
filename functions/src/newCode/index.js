@@ -5,7 +5,7 @@ const { getMessaging } = require('firebase-admin/messaging')
 const messaging = getMessaging()
 
 const { onDocumentCreated } = require('firebase-functions/v2/firestore')
-const { getGames } = require('../../helper/games')
+const { getSportyGames } = require('../../helper/games')
 const { getTokens } = require('../../helper/user')
 const { batchArray } = require('../../helper/batch')
 
@@ -15,7 +15,7 @@ const handleCode = async (event) => {
     const { code } = snap.data()
 
     try {
-        const games = await getGames(code)
+        const games = await getSportyGames(code)
         console.log(games)
 
         await snap.ref.update({ games })

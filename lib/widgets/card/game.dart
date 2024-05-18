@@ -62,7 +62,7 @@ class GameCard extends StatelessWidget {
                                   // const CircleAvatar(),
                                   const SizedBox(width: 5),
                                   Text(
-                                    game.Opp1,
+                                    game.homeTeamName,
                                     style: smallBold(primaryBlack),
                                   ),
                                 ],
@@ -74,7 +74,7 @@ class GameCard extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    game.Opp2,
+                                    game.awayTeamName,
                                     style: smallBold(primaryBlack),
                                   ),
                                   const SizedBox(
@@ -98,7 +98,9 @@ class GameCard extends StatelessWidget {
                                     width: 5,
                                   ),
                                   Text(
-                                    DateHelper.formateDay(game.Start),
+                                    DateHelper.formateDay(
+                                      game.estimateStartTime,
+                                    ),
                                     style: smallBold(darkGreen),
                                   )
                                 ],
@@ -114,7 +116,9 @@ class GameCard extends StatelessWidget {
                                     width: 10,
                                   ),
                                   Text(
-                                    DateHelper.formateDate(game.Start),
+                                    DateHelper.formateDate(
+                                      game.estimateStartTime,
+                                    ),
                                     style: smallBold(darkGreen),
                                   )
                                 ],

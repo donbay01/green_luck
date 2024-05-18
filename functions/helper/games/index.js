@@ -1,6 +1,19 @@
 const { default: axios } = require('axios')
 
 const uri = "https://ng.1x001.com/service-api/LiveBet/Open/GetCoupon"
+const endpoint = "https://www.sportybet.com/api/ng/orders/share/"
+
+exports.getSportyGames = async (code) => {
+    const res = await axios.get(endpoint + code);
+
+    const { data, message } = res.data;
+
+    if (data === undefined) {
+        throw new Error(message);
+    }
+
+    return data.outcomes;
+}
 
 exports.getGames = async (code) => {
     const res = await axios.post(uri, {

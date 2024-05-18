@@ -36,3 +36,10 @@ if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'webhook') {
 if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'accountcleanup') {
     exports.accountcleanup = require('./src/paystack/expiration').accountcleanup;
 }
+
+/**
+ * Apple subscription
+ */
+if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'appleSubcription') {
+    exports.appleSubcription = require('./src/apple/subscription').appleSubcription;
+}

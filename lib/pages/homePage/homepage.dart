@@ -5,6 +5,7 @@ import 'package:green_luck/pages/drawer/home_drawer.dart';
 import 'package:green_luck/pages/games/free_games.dart';
 import 'package:green_luck/pages/games/premium_tips.dart';
 import 'package:green_luck/providers/auth.dart';
+import 'package:green_luck/services/plans/index.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:green_luck/widgets/form/admin_textfield.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -72,7 +73,8 @@ class _HomepageState extends ConsumerState<Homepage>
               const SizedBox(
                 width: 10,
               ),
-              const CircleAvatar(backgroundImage: AssetImage('assets/logo.png')),
+              const CircleAvatar(
+                  backgroundImage: AssetImage('assets/logo.png')),
             ],
           ),
         ),

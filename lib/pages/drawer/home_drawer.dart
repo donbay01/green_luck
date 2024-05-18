@@ -36,21 +36,21 @@ class HomeDrawer extends StatelessWidget {
           const SizedBox(height: 10),
           ListTile(
             onTap: () {
-              if (Platform.isIOS) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const SupportPage(),
-                  ),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const PremiumPage(),
-                  ),
-                );
-              }
+              // if (Platform.isIOS) {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (_) => const SupportPage(),
+              //     ),
+              //   );
+              // } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const PremiumPage(),
+                ),
+              );
+              // }
             },
             leading: Icon(
               FontAwesomeIcons.unlock,

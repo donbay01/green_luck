@@ -13,7 +13,7 @@ class Code {
         games = snapshot['games'] == null
             ? [].cast<Game>()
             : snapshot['games']
-                .map((e) => Game.fromSnapshot(e))
+                .map((e) => Game.fromJSON(e))
                 .toList()
                 .cast<Game>();
 

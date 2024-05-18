@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:green_luck/theme/colors.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -17,10 +18,12 @@ import 'help_support.dart';
 
 class PremiumSheet extends StatefulWidget {
   final Plan plan;
+  final int index;
 
   const PremiumSheet({
     super.key,
     required this.plan,
+    required this.index,
   });
 
   @override
@@ -31,7 +34,7 @@ class _PremiumSheetState extends State<PremiumSheet> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 30.h,
+      height: 36.h,
       child: Column(
         children: [
           SizedBox(
@@ -208,6 +211,21 @@ class _PremiumSheetState extends State<PremiumSheet> {
             },
             leading: const Icon(FontAwesomeIcons.coins),
             title: const Text('Pay with USDT (TRC 20)'),
+          ),
+          ListTile(
+            leading: const Icon(FontAwesomeIcons.applePay),
+            onTap: () async {
+              context.loaderOverlay.show();
+              try {
+                var product = await PlanService.getInApp(widget.plan.appleId!);
+                context.loaderOverlay.hide();
+                await PlanService.buy(product.first);
+              } on PlatformException catch (e) {
+                context.loaderOverlay.hide();
+                showToast(e.message ?? e.details);
+              }
+            },
+            title: Text('Pay with Apple'),
           ),
         ],
       ),

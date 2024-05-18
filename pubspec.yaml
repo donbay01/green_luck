@@ -41,6 +41,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
 
   cloud_functions: ^4.7.1
+  in_app_purchase: ^3.2.0
 
 
   # The following adds the Cupertino Icons font to your application.

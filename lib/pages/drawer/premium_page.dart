@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
 import 'package:green_luck/pages/drawer/premium_sheet.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:zap_sizer/zap_sizer.dart';
@@ -12,8 +13,33 @@ import '../../services/plans/index.dart';
 import '../../theme/colors.dart';
 import '../../theme/text_style.dart';
 
-class PremiumPage extends StatelessWidget {
+class PremiumPage extends StatefulWidget {
   const PremiumPage({Key? key}) : super(key: key);
+
+  @override
+  State<PremiumPage> createState() => _PremiumPageState();
+}
+
+class _PremiumPageState extends State<PremiumPage> {
+  var iap = PlanService.iapConnection;
+
+  @override
+  void initState() {
+    iap.purchaseStream.listen((event) async {
+      var all =
+          event.where((e) => e.status == PurchaseStatus.purchased).toList();
+      for (var i = 0; i < all.length; i++) {
+        var product = all[i];
+        PlanService.logSubscription(product);
+
+        if (product.pendingCompletePurchase) {
+          iap.completePurchase(product);
+        }
+      }
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +68,7 @@ class PremiumPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.only(top: 20.0),
         child: PaginateFirestore(
           separator: const SizedBox(
             height: 20,
@@ -102,6 +128,7 @@ class PremiumPage extends StatelessWidget {
                             context: context,
                             builder: (_) => PremiumSheet(
                               plan: plan,
+                              index: index,
                             ),
                           );
                         },
@@ -110,7 +137,6 @@ class PremiumPage extends StatelessWidget {
                           style: mediumText(primaryWhite),
                         ),
                         style: ElevatedButton.styleFrom(
-
                           backgroundColor: darkGreen,
                           foregroundColor: primaryWhite,
                         ),

@@ -5,6 +5,7 @@ class Plan {
   final String name;
   final String interval;
   final String? planId;
+  final String? appleId;
 
   Plan.fromJSON(String docId, Map<String, dynamic> json)
       : id = docId,
@@ -12,6 +13,7 @@ class Plan {
         color = json['color'],
         name = json['name'],
         interval = json['interval'],
+        appleId = json['apple_id'],
         planId = json['planId'];
 
   Plan({
@@ -21,5 +23,6 @@ class Plan {
     required this.name,
     required this.interval,
     required this.planId,
+    this.appleId,
   });
 }
