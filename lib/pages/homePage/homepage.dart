@@ -31,6 +31,7 @@ class _HomepageState extends ConsumerState<Homepage>
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
+    fcmSetup();
     super.initState();
   }
 
