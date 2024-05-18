@@ -105,6 +105,11 @@ class AuthService {
     return db.collection('users').doc(user.uid).set(model.toJson());
   }
 
+  static updateUser(Map<String, dynamic> json) {
+    var user = getCurrentUser()!;
+    return db.collection('users').doc(user.uid).update(json);
+  }
+
   static Future<UserModel> getUser() async {
     var user = getCurrentUser();
     var userDoc = await db.collection('users').doc(user!.uid).get();

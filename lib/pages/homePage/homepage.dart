@@ -5,6 +5,7 @@ import 'package:green_luck/pages/drawer/home_drawer.dart';
 import 'package:green_luck/pages/games/free_games.dart';
 import 'package:green_luck/pages/games/premium_tips.dart';
 import 'package:green_luck/providers/auth.dart';
+import 'package:green_luck/services/fcm.dart';
 import 'package:green_luck/services/plans/index.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:green_luck/widgets/form/admin_textfield.dart';
@@ -31,6 +32,14 @@ class _HomepageState extends ConsumerState<Homepage>
   void initState() {
     tabController = TabController(length: 2, vsync: this);
     super.initState();
+  }
+
+  fcmSetup() async {
+    var token = await FCMService.getToken();
+    if (token != null) {
+      await AuthService.updateUser({'token': token});
+    }
+    await FCMService.subscribeTopic();
   }
 
   @override
