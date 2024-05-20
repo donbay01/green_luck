@@ -42,6 +42,24 @@ class _PremiumSheetState extends State<PremiumSheet> {
           SizedBox(
             height: 5.h,
           ),
+          if (Platform.isIOS) ...[
+            ListTile(
+              leading: const Icon(FontAwesomeIcons.applePay),
+              onTap: () async {
+                context.loaderOverlay.show();
+                try {
+                  var product =
+                  await PlanService.getInApp(widget.plan.appleId!);
+                  context.loaderOverlay.hide();
+                  await PlanService.buy(product.first);
+                } on PlatformException catch (e) {
+                  context.loaderOverlay.hide();
+                  showToast(e.message ?? e.details);
+                }
+              },
+              title: Text('Pay with Apple (In-App Purchase)'),
+            ),
+          ],
           ListTile(
             leading: const Icon(Icons.atm_outlined),
             onTap: () async {
@@ -214,24 +232,7 @@ class _PremiumSheetState extends State<PremiumSheet> {
             leading: const Icon(FontAwesomeIcons.coins),
             title: const Text('Pay with USDT (TRC 20)'),
           ),
-          if (Platform.isIOS) ...[
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.applePay),
-              onTap: () async {
-                context.loaderOverlay.show();
-                try {
-                  var product =
-                      await PlanService.getInApp(widget.plan.appleId!);
-                  context.loaderOverlay.hide();
-                  await PlanService.buy(product.first);
-                } on PlatformException catch (e) {
-                  context.loaderOverlay.hide();
-                  showToast(e.message ?? e.details);
-                }
-              },
-              title: Text('Pay with Apple'),
-            ),
-          ]
+
         ],
       ),
     );

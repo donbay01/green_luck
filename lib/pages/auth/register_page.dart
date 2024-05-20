@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,6 +12,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:zap_sizer/zap_sizer.dart';
 import '../../theme/colors.dart';
 import '../../theme/text_style.dart';
+import '../../widgets/button/apple.dart';
 import '../homePage/homepage.dart';
 import 'login_page.dart';
 
@@ -219,9 +222,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const GoogleButton(),
+                    Platform.isIOS ? AppleButton(): Text(''),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
+                    ),
+                    GoogleButton(),
+                    const SizedBox(
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

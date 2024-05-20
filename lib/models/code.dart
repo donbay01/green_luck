@@ -16,7 +16,6 @@ class Code {
                 .map((e) => Game.fromJSON(e))
                 .toList()
                 .cast<Game>();
-
   Code({
     required this.id,
     required this.code,

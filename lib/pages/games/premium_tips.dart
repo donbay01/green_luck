@@ -12,6 +12,7 @@ import 'package:zap_sizer/zap_sizer.dart';
 
 import '../../helper/snackbar.dart';
 import '../../models/code.dart';
+import '../../models/game.dart';
 import '../../services/code/index.dart';
 import '../../theme/colors.dart';
 import '../drawer/help_support.dart';
@@ -41,7 +42,7 @@ class PremiumTips extends ConsumerWidget {
           Icon(FontAwesomeIcons.rocket,size: 50,color: darkGreen,),
           SizedBox(height: 20,),
           Text(
-            'Go Premium or Go Home!',
+            'Dream Big, Win Bigger!',
             style: mediumSemiBold(primaryBlack),
           ),
           SizedBox(
@@ -49,21 +50,12 @@ class PremiumTips extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              if (Platform.isIOS) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const SupportPage(),
-                  ),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const PremiumPage(),
-                  ),
-                );
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const PremiumPage(),
+                ),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.all(10.0),

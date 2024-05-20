@@ -42,7 +42,7 @@ class GoogleButton extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryWhite,
+          backgroundColor: lightGreen,
           side: const BorderSide(color: darkGreen, width: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
@@ -53,7 +53,7 @@ class GoogleButton extends StatelessWidget {
           children: [
             const Icon(
               FontAwesomeIcons.squareGooglePlus,
-              color: primaryBlack,
+              color: darkGreen,
             ),
             const SizedBox(
               width: 10,

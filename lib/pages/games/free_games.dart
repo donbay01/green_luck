@@ -8,6 +8,7 @@ import 'package:green_luck/widgets/card/game.dart';
 import 'package:zap_sizer/zap_sizer.dart';
 import '../../helper/snackbar.dart';
 import '../../models/code.dart';
+import '../../models/game.dart';
 import '../../providers/auth.dart';
 import '../../services/code/index.dart';
 import '../../theme/text_style.dart';

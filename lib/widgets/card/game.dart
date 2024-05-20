@@ -29,6 +29,7 @@ class GameCard extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         var game = code.games[index];
+        var tip = code.collection;
 
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -42,7 +43,7 @@ class GameCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Container(
-                    height: height * 0.17,
+                    height: height * 0.2,
                     width: width,
                     decoration: BoxDecoration(
                       color: primaryWhite,
@@ -125,6 +126,7 @@ class GameCard extends StatelessWidget {
                               ),
                             ],
                           ),
+                          Center(child: Text('Tip: ' + '',style: tiny(primaryBlack))),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

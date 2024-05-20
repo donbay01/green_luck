@@ -85,7 +85,7 @@ class SupportPage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              _sendEmail();
+              launchUrlString('https://wa.link/greenluck');
             },
             style: ElevatedButton.styleFrom(backgroundColor: darkGreen),
             child: Padding(

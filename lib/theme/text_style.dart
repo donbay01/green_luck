@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-const Tiny = 10.0;
+const Tiny = 12.0;
 const Small = 14.0;
 const Medium = 16.0;
 const Semi = 19.0;
@@ -24,7 +24,7 @@ TextStyle tiny(Color colors) => TextStyle(
   fontSize: Tiny,
   fontFamily: font,
   height: 1.5,
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.w600,
 );
 
 TextStyle small() => TextStyle(
