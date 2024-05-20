@@ -64,6 +64,7 @@ dependencies:
   crypto: ^3.0.1
 
   firebase_messaging: ^14.9.2
+  app_version_update: ^4.0.2
  
 
 dev_dependencies:

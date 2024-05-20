@@ -1,3 +1,23 @@
+class Market {
+  final String desc;
+  final String group;
+  final String id;
+  final String marketGuide;
+
+  Market.fromJSON(Map<String, dynamic> json)
+      : desc = json['desc'],
+        group = json['group'],
+        id = json['id'],
+        marketGuide = json['marketGuide'];
+
+  Market({
+    required this.desc,
+    required this.group,
+    required this.id,
+    required this.marketGuide,
+  });
+}
+
 class Tournament {
   final String id;
   final String name;
@@ -43,6 +63,7 @@ class Game {
   final String homeTeamName;
 
   final Sport sport;
+  final List<Market> markets;
 
   Game.fromJSON(Map<String, dynamic> json)
       : awayTeamName = json['awayTeamName'],
@@ -50,7 +71,11 @@ class Game {
         eventId = json['eventId'],
         gameId = json['gameId'],
         homeTeamName = json['homeTeamName'],
-        sport = Sport.fromJSON(json['sport']);
+        sport = Sport.fromJSON(json['sport']),
+        markets = json['markets']
+            .map((a) => Market.fromJSON(a))
+            .toList()
+            .cast<Market>();
 
   Game({
     required this.awayTeamName,
@@ -59,6 +84,7 @@ class Game {
     required this.gameId,
     required this.homeTeamName,
     required this.sport,
+    required this.markets,
   });
 
   // final String GroupName;
