@@ -14,6 +14,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:zap_sizer/zap_sizer.dart';
 
 import 'providers/auth.dart';
+import 'services/update.dart';
 
 class GreenLuck extends ConsumerStatefulWidget {
   const GreenLuck({Key? key}) : super(key: key);
@@ -27,6 +28,8 @@ class _GreenLuckState extends ConsumerState<GreenLuck> {
 
   @override
   void initState() {
+    Updater.check(context);
+
     stream = AuthService.listen().listen((user) async {
       if (user != null) {
         var model = await AuthService.getUser();

@@ -10,7 +10,7 @@ class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
 
   _sendEmail() async {
-    launch("mailto:greenluck@gmail.com");
+    launch("mailto:Greenlucktips@gmail.com");
   }
 
   @override
@@ -51,23 +51,23 @@ class SupportPage extends StatelessWidget {
           ),
           Center(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    FontAwesomeIcons.envelopesBulk,
-                    size: 30,
-                    color: darkGreen,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Send us a mail for assistance',
-                    style: mediumText(primaryBlack),
-                  ),
-                ],
-              )),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                FontAwesomeIcons.envelopesBulk,
+                size: 30,
+                color: darkGreen,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Send us a mail for assistance',
+                style: mediumText(primaryBlack),
+              ),
+            ],
+          )),
           const SizedBox(
             height: 5,
           ),
@@ -76,7 +76,7 @@ class SupportPage extends StatelessWidget {
               _sendEmail();
             },
             child: Text(
-              'greenlucktips@gmail.com',
+              'Greenlucktips@gmail.com',
               style: mediumText(darkGreen),
             ),
           ),
@@ -111,6 +111,17 @@ class SupportPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                GestureDetector(
+                  onTap: () => launchUrlString('tel:09118760924'),
+                  child: Icon(
+                    FontAwesomeIcons.phone,
+                    color: Colors.blueGrey,
+                    size: 20.sp,
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
                 GestureDetector(
                   onTap: () => launchUrlString('https://t.me/Greenluck7'),
                   child: Icon(
