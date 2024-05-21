@@ -88,147 +88,149 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Form(
                 key: key,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        FontAwesomeIcons.arrowLeftLong,
-                        size: 20,
-                        color: primaryWhite,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 50,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        style: veryBoldText(primaryBlack),
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(
+                          FontAwesomeIcons.arrowLeftLong,
+                          size: 20,
+                          color: primaryWhite,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          style: veryBoldText(primaryBlack),
+                          children: [
+                            TextSpan(text: ' Wel'),
+                            TextSpan(
+                              text: 'come',
+                              style: veryBoldText(primaryWhite),
+                            ),
+                          ],
+                        ),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          style: veryBoldText(primaryBlack),
+                          children: [
+                            TextSpan(text: ' Bac'),
+                            TextSpan(
+                              text: 'k!',
+                              style: veryBoldText(primaryWhite),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      CustomTextField(
+                        controller: emailController,
+                        label: 'Email Address',
+                        hint: 'Enter your email address',
+                        keyboardType: TextInputType.emailAddress,
+                        radius: 25,
+                        prefixIcon: const Icon(Icons.email_outlined),
+                        isEmail: true,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextField(
+                        controller: passwordController,
+                        label: 'Password*',
+                        hint: 'xxxxxxxxxx',
+                        prefixIcon: const Icon(Icons.lock),
+                        isPassword: true,
+                        radius: 25,
+                        keyboardType: TextInputType.name,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          TextSpan(text: ' Wel'),
-                          TextSpan(
-                            text: 'come',
-                            style: veryBoldText(primaryWhite),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ForgotPassword(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Forgot Password?',
+                              style: small(),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        style: veryBoldText(primaryBlack),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      PrimaryButton(
+                        onPressed: () => login(),
+                        child: Text(
+                          'Login',
+                          style: mediumBold(primaryWhite),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: Text(
+                          'or continue with',
+                          style: mediumText(primaryBlack),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Platform.isIOS ? AppleButton(): Text(''),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GoogleButton(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          TextSpan(text: ' Bac'),
-                          TextSpan(
-                            text: 'k!',
-                            style: veryBoldText(primaryWhite),
-                          )
+                          Text(
+                            "Don't have an account ?",
+                            style: smallText(primaryBlack),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const RegisterPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Register',
+                              style: medium(),
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    CustomTextField(
-                      controller: emailController,
-                      label: 'Email Address',
-                      hint: 'Enter your email address',
-                      keyboardType: TextInputType.emailAddress,
-                      radius: 25,
-                      prefixIcon: const Icon(Icons.email_outlined),
-                      isEmail: true,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(
-                      controller: passwordController,
-                      label: 'Password*',
-                      hint: 'xxxxxxxxxx',
-                      prefixIcon: const Icon(Icons.lock),
-                      isPassword: true,
-                      radius: 25,
-                      keyboardType: TextInputType.name,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ForgotPassword(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Forgot Password?',
-                            style: small(),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    PrimaryButton(
-                      onPressed: () => login(),
-                      child: Text(
-                        'Login',
-                        style: mediumBold(primaryWhite),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Text(
-                        'or continue with',
-                        style: mediumText(primaryBlack),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Platform.isIOS ? AppleButton(): Text(''),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GoogleButton(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don't have an account ?",
-                          style: smallText(primaryBlack),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const RegisterPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Register',
-                            style: medium(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -106,154 +106,156 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Form(
                 key: key,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        FontAwesomeIcons.arrowLeftLong,
-                        size: 20,
-                        color: primaryWhite,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 50,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        style: veryBoldText(primaryBlack),
-                        children: [
-                          TextSpan(text: " Let'"),
-                          TextSpan(
-                            text: "s get",
-                            style: veryBoldText(primaryWhite),
-                          ),
-                        ],
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(
+                          FontAwesomeIcons.arrowLeftLong,
+                          size: 20,
+                          color: primaryWhite,
+                        ),
                       ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        style: veryBoldText(primaryBlack),
-                        children: [
-                          TextSpan(text: " Star"),
-                          TextSpan(
-                            text: 'ted',
-                            style: veryBoldText(primaryWhite),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(
-                      controller: userNameController,
-                      label: 'Username',
-                      hint: 'Enter your username',
-                      prefixIcon: const Icon(Icons.person),
-                      radius: 25,
-                      keyboardType: TextInputType.name,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(
-                      controller: emailController,
-                      label: 'Email Address',
-                      hint: 'Enter your email address',
-                      keyboardType: TextInputType.emailAddress,
-                      prefixIcon: const Icon(Icons.email_outlined),
-                      radius: 25,
-                      isEmail: true,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(
-                      controller: passwordController,
-                      label: 'Password*',
-                      hint: 'xxxxxxxxxx',
-                      radius: 25,
-                      prefixIcon: const Icon(Icons.lock),
-                      isPassword: true,
-                      keyboardType: TextInputType.name,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CheckboxListTile(
-                      activeColor: darkGreen,
-                      checkColor: primaryWhite,
-                      title: Text(
-                        'I accept the Terms and Conditions',
-                        style: smallText(primaryBlack),
+                      RichText(
+                        text: TextSpan(
+                          style: veryBoldText(primaryBlack),
+                          children: [
+                            TextSpan(text: " Let'"),
+                            TextSpan(
+                              text: "s get",
+                              style: veryBoldText(primaryWhite),
+                            ),
+                          ],
+                        ),
                       ),
-                      value: termsAndCondition,
-                      onChanged: (newValue) {
-                        setState(() {
-                          termsAndCondition = newValue!;
-                        });
-                      },
-                      controlAffinity: ListTileControlAffinity.leading,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    PrimaryButton(
-                      onPressed: () => register(),
-                      child: Text(
-                        'Register',
-                        style: mediumBold(primaryWhite),
+                      RichText(
+                        text: TextSpan(
+                          style: veryBoldText(primaryBlack),
+                          children: [
+                            TextSpan(text: " Star"),
+                            TextSpan(
+                              text: 'ted',
+                              style: veryBoldText(primaryWhite),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Text(
-                        'or continue with',
-                        style: mediumText(primaryBlack),
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Platform.isIOS ? AppleButton(): Text(''),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GoogleButton(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already have an account ?",
+                      CustomTextField(
+                        controller: userNameController,
+                        label: 'Username',
+                        hint: 'Enter your username',
+                        prefixIcon: const Icon(Icons.person),
+                        radius: 25,
+                        keyboardType: TextInputType.name,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextField(
+                        controller: emailController,
+                        label: 'Email Address',
+                        hint: 'Enter your email address',
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIcon: const Icon(Icons.email_outlined),
+                        radius: 25,
+                        isEmail: true,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextField(
+                        controller: passwordController,
+                        label: 'Password*',
+                        hint: 'xxxxxxxxxx',
+                        radius: 25,
+                        prefixIcon: const Icon(Icons.lock),
+                        isPassword: true,
+                        keyboardType: TextInputType.name,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CheckboxListTile(
+                        activeColor: darkGreen,
+                        checkColor: primaryWhite,
+                        title: Text(
+                          'I accept the Terms and Conditions',
                           style: smallText(primaryBlack),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const LoginPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Login',
-                            style: medium(),
-                          ),
+                        value: termsAndCondition,
+                        onChanged: (newValue) {
+                          setState(() {
+                            termsAndCondition = newValue!;
+                          });
+                        },
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      PrimaryButton(
+                        onPressed: () => register(),
+                        child: Text(
+                          'Register',
+                          style: mediumBold(primaryWhite),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: Text(
+                          'or continue with',
+                          style: mediumText(primaryBlack),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Platform.isIOS ? AppleButton(): Text(''),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GoogleButton(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Already have an account ?",
+                            style: smallText(primaryBlack),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const LoginPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Login',
+                              style: medium(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
