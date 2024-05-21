@@ -176,6 +176,7 @@ class GameCard extends StatelessWidget {
                               ),
                             ],
                           ),
+                          Text('Bookie: Sporty Bet'),
                         ],
                       ),
                     ),
