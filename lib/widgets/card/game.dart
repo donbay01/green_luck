@@ -55,37 +55,42 @@ class GameCard extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                children: [
-                                  // const CircleAvatar(),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    game.homeTeamName,
-                                    style: smallBold(primaryBlack),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "VS",
-                                style: smallBold(darkGreen),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    game.awayTeamName,
-                                    style: smallBold(primaryBlack),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  // const CircleAvatar(),
-                                ],
-                              ),
-                            ],
+                          Text(
+                            "${game.homeTeamName} VS ${game.awayTeamName}",
+                            maxLines: 2,
                           ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     Row(
+                          //       children: [
+                          //         // const CircleAvatar(),
+                          //         const SizedBox(width: 5),
+                          //         Text(
+                          //           game.homeTeamName,
+                          //           style: smallBold(primaryBlack),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     Text(
+                          //       "VS",
+                          //       style: smallBold(darkGreen),
+                          //     ),
+                          //     Row(
+                          //       children: [
+                          //         Text(
+                          //           game.awayTeamName,
+                          //           style: smallBold(primaryBlack),
+                          //         ),
+                          //         const SizedBox(
+                          //           width: 5,
+                          //         ),
+                          //         // const CircleAvatar(),
+                          //       ],
+                          //     ),
+                          //   ],
+                          // ),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
