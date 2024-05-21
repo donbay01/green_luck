@@ -5,17 +5,17 @@ const { getMessaging } = require('firebase-admin/messaging')
 const messaging = getMessaging()
 
 const { onDocumentCreated } = require('firebase-functions/v2/firestore')
-const { betcodeAPI } = require('../../helper/games')
+const { getSportyGames } = require('../../helper/games')
 const { getTokens } = require('../../helper/user')
 const { batchArray } = require('../../helper/batch')
 
 const handleCode = async (event) => {
     const snap = event.data
     console.log(snap.data())
-    const { code, bookieFrom } = snap.data()
+    const { code } = snap.data()
 
     try {
-        const games = await betcodeAPI(bookieFrom, code)
+        const games = await getSportyGames(code)
         console.log(games)
 
         await snap.ref.update({ games })
