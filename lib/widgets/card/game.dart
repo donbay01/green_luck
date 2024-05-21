@@ -141,7 +141,7 @@ class GameCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Booking code: ',
+                                'Sporty Bet Booking Code: ',
                                 style: smallText(primaryBlack),
                               ),
                               const SizedBox(
@@ -181,7 +181,6 @@ class GameCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Text('Bookie: Sporty Bet'),
                         ],
                       ),
                     ),
