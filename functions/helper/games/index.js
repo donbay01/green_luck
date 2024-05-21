@@ -3,6 +3,20 @@ const { default: axios } = require('axios')
 const uri = "https://ng.1x001.com/service-api/LiveBet/Open/GetCoupon"
 const endpoint = "https://www.sportybet.com/api/ng/orders/share/"
 
+exports.betcodeAPI = async (bookieFrom, bookieCode) => {
+    const res = await axios.get('https://conversion-api.netlify.app/.netlify/functions/api/fetchGames', {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {
+            bookieFrom,
+            bookieCode
+        }
+    })
+
+    return res.data
+}
+
 exports.getSportyGames = async (code) => {
     const res = await axios.get(endpoint + code);
 

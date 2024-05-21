@@ -9,8 +9,8 @@ class DateHelper {
   }
 
   static String formateDay(int timestamp) {
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    String formattedTime = DateFormat('d/MM/yyyy').format(dateTime);
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedTime = DateFormat('dd/MM/yyyy').format(dateTime);
 
     return formattedTime;
   }

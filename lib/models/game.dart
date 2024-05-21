@@ -1,13 +1,36 @@
+class Outcomes {
+  final String desc;
+  final String odds;
+  final String probability;
+
+  Outcomes.fromJSON(Map<String, dynamic> json)
+      : desc = json['desc'],
+        odds = json['odds'],
+        probability = json['probability'];
+
+  Outcomes({
+    required this.desc,
+    required this.odds,
+    required this.probability,
+  });
+}
+
 class Market {
   final String desc;
   final String group;
   final String id;
   final String marketGuide;
 
+  final List<Outcomes> outcomes;
+
   Market.fromJSON(Map<String, dynamic> json)
       : desc = json['desc'],
         group = json['group'],
         id = json['id'],
+        outcomes = json['outcomes']
+            .map((a) => Outcomes.fromJSON(a))
+            .toList()
+            .cast<Outcomes>(),
         marketGuide = json['marketGuide'];
 
   Market({
@@ -15,6 +38,7 @@ class Market {
     required this.group,
     required this.id,
     required this.marketGuide,
+    required this.outcomes,
   });
 }
 

@@ -126,7 +126,12 @@ class GameCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Center(child: Text('Tip: ' + 'Working on it lol',style: tiny(primaryBlack))),
+                          Center(
+                            child: Text(
+                              'Tip: ${game.markets[0].desc} - ${game.markets[0].outcomes[0].desc}',
+                              style: tiny(primaryBlack),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
