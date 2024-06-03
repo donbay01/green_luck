@@ -6,13 +6,10 @@ import 'package:green_luck/pages/games/free_games.dart';
 import 'package:green_luck/pages/games/premium_tips.dart';
 import 'package:green_luck/providers/auth.dart';
 import 'package:green_luck/services/fcm.dart';
-import 'package:green_luck/services/plans/index.dart';
-import 'package:green_luck/services/update.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:green_luck/widgets/form/admin_textfield.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:zap_sizer/zap_sizer.dart';
-
 import '../../services/auth/index.dart';
 import '../../theme/text_style.dart';
 import '../../widgets/banner/index.dart';

@@ -108,16 +108,35 @@ class _PremiumPageState extends State<PremiumPage> {
                         height: 10,
                       ),
                       Text(
+                        'Premium subscription unlocks the following ',
+                        style: mediumText(primaryBlack),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
                         ' - Access to Premium Tips',
                         style: mediumText(primaryBlack),
+                      ),
+                      Text(
+                        ' - Premium tips are daily',
+                        style: tiny(primaryBlack),
                       ),
                       Text(
                         ' - Access to the Worksheet',
                         style: mediumText(primaryBlack),
                       ),
                       Text(
-                        ' - Access to Free Rollover challenges',
+                        ' - Worksheet comprises of the best games for the weekend',
+                        style: tiny(primaryBlack),
+                      ),
+                      Text(
+                        ' - Access to Rollover challenges',
                         style: mediumText(primaryBlack),
+                      ),
+                      Text(
+                        ' - Enjoy premium rollover slips as a community',
+                        style: tiny(primaryBlack),
                       ),
                       SizedBox(
                         height: 20,

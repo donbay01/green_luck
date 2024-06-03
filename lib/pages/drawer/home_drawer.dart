@@ -122,6 +122,28 @@ class HomeDrawer extends StatelessWidget {
               style: mediumText(primaryWhite),
             ),
           ),
+          const Divider(
+            color: Colors.grey,
+          ),
+          ListTile(
+            onTap: () async {
+              const url = 'https://greenlucktips.com/pages/privacy-policy';
+              if (await canLaunchUrlString(url)) {
+                await launchUrlString(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                );
+              }
+            },
+            leading: Icon(
+              FontAwesomeIcons.info,
+              color: primaryWhite,
+            ),
+            title: Text(
+              'Privacy policy & Terms of Use',
+              style: mediumText(primaryWhite),
+            ),
+          ),
           const SizedBox(height: 100),
           ListTile(
             onTap: () => showDialog(

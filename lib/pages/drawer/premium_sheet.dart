@@ -58,182 +58,183 @@ class _PremiumSheetState extends State<PremiumSheet> {
                     showToast(e.message ?? e.details);
                   }
                 },
-                title: Text('Pay with Apple (In-App Purchase)'),
+                title: Text('In-App Purchase',style: mediumSemiBold(primaryBlack),),
               ),
             ],
-            ListTile(
-              leading: const Icon(Icons.atm_outlined),
-              onTap: () async {
-                context.loaderOverlay.show();
-                try {
-                  var link = await PlanService.getLink(widget.plan.planId!);
-                  context.loaderOverlay.hide();
-                  launchUrlString(link);
-                } on FirebaseFunctionsException catch (e) {
-                  context.loaderOverlay.hide();
-                  SnackbarHelper.displayToastMessage(
-                    context: context,
-                    message: e.message!,
-                  );
-                }
-              },
-              title: const Text('Pay with Paystack'),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              onTap: () async {
-                context.loaderOverlay.show();
-                try {
-                  var info = await PlanService.getBankInfo();
+            if (Platform.isAndroid) ...[
+              ListTile(
+                leading: const Icon(Icons.atm_outlined),
+                onTap: () async {
+                  context.loaderOverlay.show();
+                  try {
+                    var link = await PlanService.getLink(widget.plan.planId!);
+                    context.loaderOverlay.hide();
+                    launchUrlString(link);
+                  } on FirebaseFunctionsException catch (e) {
+                    context.loaderOverlay.hide();
+                    SnackbarHelper.displayToastMessage(
+                      context: context,
+                      message: e.message!,
+                    );
+                  }
+                },
+                title: const Text('Pay with Paystack'),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () async {
+                  context.loaderOverlay.show();
+                  try {
+                    var info = await PlanService.getBankInfo();
 
-                  context.loaderOverlay.hide();
+                    context.loaderOverlay.hide();
+                    await showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Bank Information'),
+                        content: SizedBox(
+                          height: 30.h,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Account number: ${info.number}'),
+                              Text('Account bank: ${info.bank}'),
+                              Text('Account name: ${info.name}'),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Text('Kindly share your proof of payment'),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 60.w,
+                                    child: CustomButton(
+                                      function: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (_) => const SupportPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'Contact Us',
+                                        style: mediumText(
+                                          Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  } on FirebaseException catch (e) {
+                    context.loaderOverlay.hide();
+                    print(e.message);
+                  }
+                },
+                leading: const Icon(FontAwesomeIcons.buildingColumns),
+                title: const Text('Pay with bank transfer'),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () async {
+                  var crypto = await PlanService.getCryptoInfo();
+
                   await showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: const Text('Bank Information'),
+                      title: Center(
+                        child: Text(
+                          'USDT Payment',
+                          style: mediumBold(primaryBlack),
+                        ),
+                      ),
                       content: SizedBox(
                         height: 30.h,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Account number: ${info.number}'),
-                            Text('Account bank: ${info.bank}'),
-                            Text('Account name: ${info.name}'),
+                            Text(
+                              'Address - ${crypto.address}',
+                              style: mediumBold(primaryBlack),
+                            ),
                             SizedBox(
                               height: 2.h,
                             ),
-                            Text('Kindly share your proof of payment'),
+                            Text(
+                              'Network - ${crypto.network}',
+                              style: mediumBold(primaryBlack),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              'Kindly share your proof of payment for confirmation',
+                              style: medium(),
+                            ),
                             SizedBox(
                               height: 4.h,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 60.w,
-                                  child: CustomButton(
-                                    function: () {
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (_) => const SupportPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'Contact Us',
-                                      style: mediumText(
-                                        Colors.white,
-                                      ),
-                                    ),
+                            ElevatedButton(
+                              onPressed: () {
+                                final data = ClipboardData(
+                                  text: crypto.address,
+                                );
+                                Clipboard.setData(data);
+                                print(data);
+                                // SnackbarHelper.displayToastMessage(
+                                //   context: context,
+                                //   message: "Address Copied",
+                                //   color: darkGreen,
+                                // );
+                                showToast("Address Copied");
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: darkGreen,
+                                  foregroundColor: darkGreen),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Copy Address',
+                                    style: smallBold(primaryWhite),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  const Icon(
+                                    Icons.copy,
+                                    color: primaryWhite,
+                                    size: 16,
+                                  )
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
                   );
-                } on FirebaseException catch (e) {
-                  context.loaderOverlay.hide();
-                  print(e.message);
-                }
-              },
-              leading: const Icon(FontAwesomeIcons.buildingColumns),
-              title: const Text('Pay with bank transfer'),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              onTap: () async {
-                var crypto = await PlanService.getCryptoInfo();
-
-                await showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: Center(
-                      child: Text(
-                        'USDT Payment',
-                        style: mediumBold(primaryBlack),
-                      ),
-                    ),
-                    content: SizedBox(
-                      height: 30.h,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Address - ${crypto.address}',
-                            style: mediumBold(primaryBlack),
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Text(
-                            'Network - ${crypto.network}',
-                            style: mediumBold(primaryBlack),
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Text(
-                            'Kindly share your proof of payment for confirmation',
-                            style: medium(),
-                          ),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              final data = ClipboardData(
-                                text: crypto.address,
-                              );
-                              Clipboard.setData(data);
-                              print(data);
-                              // SnackbarHelper.displayToastMessage(
-                              //   context: context,
-                              //   message: "Address Copied",
-                              //   color: darkGreen,
-                              // );
-                              showToast("Address Copied");
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: darkGreen,
-                                foregroundColor: darkGreen),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Copy Address',
-                                  style: smallBold(primaryWhite),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Icon(
-                                  Icons.copy,
-                                  color: primaryWhite,
-                                  size: 16,
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-              leading: const Icon(FontAwesomeIcons.coins),
-              title: const Text('Pay with USDT (TRC 20)'),
-            ),
-
+                },
+                leading: const Icon(FontAwesomeIcons.coins),
+                title: const Text('Pay with USDT (TRC 20)'),
+              ),
+            ],
           ],
         ),
       ),
