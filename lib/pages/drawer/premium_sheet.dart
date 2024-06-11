@@ -45,7 +45,7 @@ class _PremiumSheetState extends State<PremiumSheet> {
             ),
             if (Platform.isIOS) ...[
               ListTile(
-                leading: const Icon(FontAwesomeIcons.applePay),
+                leading: const Icon(FontAwesomeIcons.applePay,color: darkGreen,),
                 onTap: () async {
                   context.loaderOverlay.show();
                   try {
@@ -59,6 +59,23 @@ class _PremiumSheetState extends State<PremiumSheet> {
                   }
                 },
                 title: Text('In-App Purchase',style: mediumSemiBold(primaryBlack),),
+              ),
+              SizedBox(height: 10,),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.solidWindowRestore,color: darkGreen,),
+                onTap: () async {
+                  context.loaderOverlay.show();
+                  try {
+                    var product =
+                    await PlanService.getInApp(widget.plan.appleId!);
+                    context.loaderOverlay.hide();
+                    await PlanService.buy(product.first);
+                  } on PlatformException catch (e) {
+                    context.loaderOverlay.hide();
+                    showToast(e.message ?? e.details);
+                  }
+                },
+                title: Text('Restore Purchase',style: mediumSemiBold(primaryBlack),),
               ),
             ],
             if (Platform.isAndroid) ...[

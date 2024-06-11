@@ -83,7 +83,7 @@ class _PremiumPageState extends State<PremiumPage> {
 
             return Center(
               child: Container(
-                height: height * 0.43,
+                height: height * 0.6,
                 width: width * 0.8,
                 decoration: BoxDecoration(
                   color: HexColor(plan.color),
@@ -119,15 +119,15 @@ class _PremiumPageState extends State<PremiumPage> {
                         style: mediumText(primaryBlack),
                       ),
                       Text(
-                        ' - Premium tips are daily',
+                        ' - Minimum of 2 Premium tips are daily',
                         style: tiny(primaryBlack),
                       ),
                       Text(
-                        ' - Access to the Worksheet',
+                        ' -  Access to the Worksheet',
                         style: mediumText(primaryBlack),
                       ),
                       Text(
-                        ' - Worksheet comprises of the best games for the weekend',
+                        ' - Worksheet comprises of the best games for the weekend. To be shared every weekend',
                         style: tiny(primaryBlack),
                       ),
                       Text(
@@ -135,7 +135,7 @@ class _PremiumPageState extends State<PremiumPage> {
                         style: mediumText(primaryBlack),
                       ),
                       Text(
-                        ' - Enjoy premium rollover slips as a community',
+                        ' - Enjoy minimum of  2 premium rollover slips',
                         style: tiny(primaryBlack),
                       ),
                       SizedBox(
