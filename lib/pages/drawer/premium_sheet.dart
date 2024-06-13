@@ -45,7 +45,7 @@ class _PremiumSheetState extends State<PremiumSheet> {
             ),
             if (Platform.isIOS) ...[
               ListTile(
-                leading: const Icon(FontAwesomeIcons.applePay,color: darkGreen,),
+                leading: const Icon(FontAwesomeIcons.coins,color: darkGreen,),
                 onTap: () async {
                   context.loaderOverlay.show();
                   try {

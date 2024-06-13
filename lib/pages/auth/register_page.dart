@@ -44,12 +44,11 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   register() async {
-    var isValid = key.currentState!.validate();
-
-    if (!isValid) {
+    var valid = key.currentState!.validate();
+    if (!valid) {
       return SnackbarHelper.displayToastMessage(
         context: context,
-        message: 'You need to fill in all the required fields',
+        message: 'You need to fill all required fields',
       );
     }
 
@@ -63,21 +62,21 @@ class _RegisterPageState extends State<RegisterPage> {
     context.loaderOverlay.show();
 
     try {
-      var credential = await AuthService.signUp(
+      var cred = await AuthService.signUp(
         email: emailController.text,
         password: passwordController.text,
       );
-
       await AuthService.createAccount(
-        credential: credential,
+        credential: cred,
         displayName: userNameController.text,
       );
 
       context.loaderOverlay.hide();
 
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const Homepage()),
-        (route) => false,
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => const Homepage(),
+        ),
       );
     } on FirebaseAuthException catch (e) {
       context.loaderOverlay.hide();

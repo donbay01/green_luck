@@ -38,12 +38,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   login() async {
-    var isValid = key.currentState!.validate();
-
-    if (!isValid) {
+    var valid = key.currentState!.validate();
+    if (!valid) {
       return SnackbarHelper.displayToastMessage(
         context: context,
-        message: 'You need to fill in all the required fields',
+        message: 'Fill all required fields',
       );
     }
 
@@ -54,12 +53,10 @@ class _LoginPageState extends State<LoginPage> {
         email: emailController.text,
         password: passwordController.text,
       );
-
       context.loaderOverlay.hide();
-
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => const Homepage()),
-        (route) => false,
+            (route) => false,
       );
     } on FirebaseAuthException catch (e) {
       context.loaderOverlay.hide();

@@ -8,11 +8,14 @@ import 'package:green_luck/providers/auth.dart';
 import 'package:green_luck/services/fcm.dart';
 import 'package:green_luck/theme/colors.dart';
 import 'package:green_luck/widgets/form/admin_textfield.dart';
+import 'package:green_luck/widgets/header/auth.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:zap_sizer/zap_sizer.dart';
 import '../../services/auth/index.dart';
 import '../../theme/text_style.dart';
 import '../../widgets/banner/index.dart';
+
+
 
 class Homepage extends ConsumerStatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -29,29 +32,27 @@ class _HomepageState extends ConsumerState<Homepage>
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
-    fcmSetup();
+    tabController.addListener(() => setState(() {}));
+    updateToken();
     super.initState();
   }
 
-  fcmSetup() async {
+  updateToken() async {
+    var token = await AuthService.getToken();
+    await AuthService.updateUser({'token': token});
     await FCMService.subscribeTopic();
-    var token = await FCMService.getToken();
-    if (token != null) {
-      await AuthService.updateUser({'token': token});
-    }
   }
 
   @override
   void dispose() {
     tabController.dispose();
+    tabController.removeListener(() {});
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var usermodel = ref.watch(userProvider);
-
-    var user = AuthService.getCurrentUser()!;
+    var user = ref.watch(userProvider);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -71,19 +72,9 @@ class _HomepageState extends ConsumerState<Homepage>
               },
             ),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                usermodel?.displayName ?? 'Guest',
-                style: mediumBold(primaryWhite),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const CircleAvatar(
-                  backgroundImage: AssetImage('assets/logo.png')),
-            ],
+
+          title: AccountHeader(
+            user: user,
           ),
         ),
         drawer: const HomeDrawer(),
@@ -147,7 +138,7 @@ class _HomepageState extends ConsumerState<Homepage>
                   ],
                 ),
               ),
-              if (usermodel?.role == 'admin') ...[
+              if (user?.role == 'admin') ...[
                 AdminTextField(
                   index: tabController.index,
                 ),

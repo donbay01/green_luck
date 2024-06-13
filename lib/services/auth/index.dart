@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../models/user.dart';
@@ -12,6 +13,7 @@ import '../../models/user.dart';
 class AuthService {
   static final auth = FirebaseAuth.instance;
   static final db = FirebaseFirestore.instance;
+  static final messaging = FirebaseMessaging.instance;
 
   static String generateNonce([int length = 32]) {
     final charset =
@@ -19,6 +21,21 @@ class AuthService {
     final random = Random.secure();
     return List.generate(length, (_) => charset[random.nextInt(charset.length)])
         .join();
+  }
+
+  static Stream<DocumentSnapshot<Map<String, dynamic>>> listenUser(
+      String uid,
+      ) =>
+      db.collection('users').doc(uid).snapshots();
+
+  static Future<String?> getToken() async {
+    var perm = await messaging.requestPermission();
+    if (perm.authorizationStatus == AuthorizationStatus.authorized) {
+      var token = await messaging.getToken();
+      return token;
+    }
+
+    return null;
   }
 
   static String sha256ofString(String input) {

@@ -96,6 +96,8 @@ class _PremiumPageState extends State<PremiumPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      Text('For both NEW PAYMENTS and AUTO-RENEWAL, find below details of the content you are about to purchase.\nThe daily plan is for 1 day, Weekly plan is for 7 days and monthly plan ios for 31 days.'),
+                      SizedBox(height: 10,),
                       Text(
                         '${plan.name}',
                         style: mediumSemiBold(primaryBlack),
@@ -108,34 +110,15 @@ class _PremiumPageState extends State<PremiumPage> {
                         height: 10,
                       ),
                       Text(
-                        'Premium subscription unlocks the following ',
-                        style: mediumText(primaryBlack),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        ' - Access to Premium Tips',
-                        style: mediumText(primaryBlack),
-                      ),
-                      Text(
-                        ' - Minimum of 2 Premium tips are daily',
+                        ' - Access to Premium Tip, A minimum of 2 Premium tips are daily',
                         style: tiny(primaryBlack),
                       ),
                       Text(
-                        ' -  Access to the Worksheet',
-                        style: mediumText(primaryBlack),
-                      ),
-                      Text(
-                        ' - Worksheet comprises of the best games for the weekend. To be shared every weekend',
+                        ' - Access to the Worksheet, The Worksheet comprises of the best games shared every weekend',
                         style: tiny(primaryBlack),
                       ),
                       Text(
-                        ' - Access to Rollover challenges',
-                        style: mediumText(primaryBlack),
-                      ),
-                      Text(
-                        ' - Enjoy minimum of  2 premium rollover slips',
+                        ' - Access to Rollover challenges, Enjoy minimum of  2 premium rollover slips',
                         style: tiny(primaryBlack),
                       ),
                       SizedBox(

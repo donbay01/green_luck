@@ -13,6 +13,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:zap_sizer/zap_sizer.dart';
 
+import 'models/user.dart';
 import 'providers/auth.dart';
 import 'services/update.dart';
 
@@ -24,22 +25,24 @@ class GreenLuck extends ConsumerStatefulWidget {
 }
 
 class _GreenLuckState extends ConsumerState<GreenLuck> {
-  late StreamSubscription<User?> stream;
+  late StreamSubscription stream;
 
   @override
   void initState() {
-    Updater.check(context);
-
-    stream = AuthService.listen().listen((user) async {
+    AuthService.listen().listen((user) {
       if (user != null) {
-        var model = await AuthService.getUser();
-        ref.read(userProvider.notifier).state = model;
+        stream = AuthService.listenUser(user.uid).listen((event) {
+          var model = UserModel.fromJSON(event.data() as dynamic);
+          ref.read(userProvider.notifier).state = model;
+        });
       } else {
         ref.read(userProvider.notifier).state = null;
+        stream.cancel();
       }
     });
     super.initState();
   }
+
 
   @override
   void dispose() {
