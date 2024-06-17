@@ -17,7 +17,7 @@ class Outcomes {
 
 class Market {
   final String desc;
-  final String group;
+  final String? group;
   final String id;
   final String marketGuide;
 

@@ -96,7 +96,7 @@ class _PremiumPageState extends State<PremiumPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text('For both NEW PAYMENTS and AUTO-RENEWAL, find below details of the content you are about to purchase.\nThe daily plan is for 1 day, Weekly plan is for 7 days and monthly plan ios for 31 days.'),
+                      Text('For NEW PAYMENTS and AUTO-RENEWALS, Find below details of the content you are about to purchase.\nThe daily plan is for a day, Weekly plan is for 7 days and monthly plan ios for 31 days.'),
                       SizedBox(height: 10,),
                       Text(
                         '${plan.name}',
@@ -111,15 +111,15 @@ class _PremiumPageState extends State<PremiumPage> {
                       ),
                       Text(
                         ' - Access to Premium Tip, A minimum of 2 Premium tips are daily',
-                        style: tiny(primaryBlack),
+                        style: smallText(primaryBlack),
                       ),
                       Text(
                         ' - Access to the Worksheet, The Worksheet comprises of the best games shared every weekend',
-                        style: tiny(primaryBlack),
+                        style: smallText(primaryBlack),
                       ),
                       Text(
                         ' - Access to Rollover challenges, Enjoy minimum of  2 premium rollover slips',
-                        style: tiny(primaryBlack),
+                        style: smallText(primaryBlack),
                       ),
                       SizedBox(
                         height: 20,
