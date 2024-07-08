@@ -43,3 +43,10 @@ if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'accountcleanup'
 if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'appleSubcription') {
     exports.appleSubcription = require('./src/apple/subscription').appleSubcription;
 }
+
+/**
+ * API
+ */
+if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === 'addNewCode') {
+    exports.addNewCode = require('./src/newCode/api').addNewCode;
+}
